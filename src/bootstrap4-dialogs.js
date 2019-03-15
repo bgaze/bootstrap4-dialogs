@@ -6,15 +6,7 @@
     window.bsd = new function () {
         var self = this;
 
-        /*
-         * DEFAULTS COMMON SETTINGS.
-         */
-
-        "./src/templates/defaults.js"
-
-        /*
-         * DIALOG CREATOR
-         */
+        this.defaults = {};
 
         this.dialog = function (type, options, customize) {
             // Configure.
@@ -77,113 +69,36 @@
             return $dialog;
         };
 
-        /*
-         * ALERT
-         */
-
-        this.alert = function (title, options) {
-            return this.dialog("alert", options, function ($dialog, settings) {
-                // Manage dialog title.
-                if (!title) {
-                    $('.bsd-message', $dialog).remove();
-                } else {
-                    $('.bsd-message', $dialog).html(title);
-                }
-
-                // Customize close button.
-                $('.bsd-close', $dialog).addClass(settings.closeClass).text(settings.closeText);
-
-                // Manage dialog events.
-                if (typeof settings.callback === 'function') {
-                    $dialog.on('click.dismiss.bs.modal keydown.dismiss.bs.modal', settings.callback);
-                }
-            });
-        };
-
-        /*
-         * CONFIRM
-         */
-
-        this.confirm = function (title, options) {
-            return this.dialog("confirm", options, function ($dialog, settings) {
-                // Manage dialog title.
-                if (!title) {
-                    $('.bsd-message', $dialog).remove();
-                } else {
-                    $('.bsd-message', $dialog).html(title);
-                }
-
-                // Customize buttons.
-                $('.bsd-cancel', $dialog).addClass(settings.cancelClass).text(settings.cancelText);
-                $('.bsd-confirm', $dialog).addClass(settings.confirmClass).text(settings.confirmText);
-
-                // Manage dialog events.
-                if (typeof settings.callback === 'function') {
-                    // Close on Escape key.
-                    $dialog.on('keydown.dismiss.bs.modal', function (e) {
-                        settings.callback(false, e);
-                    });
-
-                    // Close on click.
-                    $dialog.on('click.dismiss.bs.modal', function (e) {
-                        if (!$(e.target).is('.bsd-confirm')) {
-                            settings.callback(false, e);
-                        }
-                    });
-
-                    // Confirm button click.
-                    $('.bsd-confirm', $dialog).click(function (e) {
-                        if (settings.callback(true, e) !== false) {
-                            $dialog.modal('hide');
-                        }
-                    });
-                }
-            });
-        };
-
-        /*
-         * PROMPT
-         */
-
-        this.prompt = function (title, options) {
-            return this.dialog("prompt", options, function ($dialog, settings) {
-                // Manage dialog title.
-                if (!title) {
-                    $('.bsd-message', $dialog).remove();
-                } else {
-                    $('.bsd-message', $dialog).html(title);
-                }
-
-                // Append prompt field based on config.
-                var input = (typeof settings.field === 'function') ? settings.field(settings.multiline) : settings.field;
-                $('.bsd-field-wrapper', $dialog).append(input);
-
-                // Customize buttons.
-                $('.bsd-cancel', $dialog).addClass(settings.cancelClass).text(settings.cancelText);
-                $('.bsd-confirm', $dialog).addClass(settings.confirmClass).text(settings.confirmText);
-
-                // Manage dialog events.
-                if (typeof settings.callback === 'function') {
-                    // Close on Escape key.
-                    $dialog.on('keydown.dismiss.bs.modal', function (e) {
-                        settings.callback(null, e);
-                    });
-
-                    // Close on click.
-                    $dialog.on('click.dismiss.bs.modal', function (e) {
-                        if (!$(e.target).is('.bsd-confirm')) {
-                            settings.callback(null, e);
-                        }
-                    });
-
-                    // Confirm button click.
-                    $('.bsd-confirm', $dialog).click(function (e) {
-                        if (settings.callback($('bsd-field', $dialog).val(), e) !== false) {
-                            $dialog.modal('hide');
-                        }
-                    });
-                }
-            });
-        };
     };
+
+    /*
+     * DEFAULTS COMMON SETTINGS.
+     */
+
+
+    "./src/dialogs/common-defaults.js"
+
+    /*
+     * ALERT
+     */
+
+    "./src/dialogs/alert-defaults.js"
+
+    "./src/dialogs/alert-function.js"
+
+    /*
+     * CONFIRM
+     */
+
+    "./src/dialogs/confirm-defaults.js"
+
+    "./src/dialogs/confirm-function.js"
+
+    /*
+     * PROMPT
+     */
+
+    "./src/dialogs/prompt-defaults.js"
+
+    "./src/dialogs/prompt-function.js"
 }(jQuery));

@@ -13,7 +13,7 @@
         <style>
             body{
                 padding: 50px 0;
-            }
+            } 
 
             section{
                 padding-top: 80px;
@@ -26,8 +26,8 @@
             pre.card code{
                 padding: 20px !important;
                 font-size: 0.9em;
-                line-height: 1.2;
-            }
+                line-height: 1.2; 
+            } 
 
             .github .nav-link{
                 padding-top: 4px;
@@ -156,7 +156,7 @@ $('#demo5').click(function () {
                         <h2>Usage</h2>
 
                         <p>
-                            This section applies to all provided dialog functions (bsd.alert, bsd.confirm, bsd.prompt).
+                            This section applies to all provided dialog functions (<b>bsd.alert</b>, <b>bsd.confirm</b>, <b>bsd.prompt</b>).
                         </p>
 
                         <p>
@@ -173,48 +173,51 @@ $('#demo5').click(function () {
                                 Dialog functions accept two arguments:
                             </p>
 
-                            <ul class="list-unstyled pl-sm-5">
+                            <ul>
                                 <li>
                                     <b>title:</b> the html to insert into the dialog popup title.<br/>
-                                If a function is provided, it will be evaluated before showing the dialog.<br/>
                                 If undefined, the title element will be removed from the modal.
-                                    <pre class="card"><code class="javascript">bsd.alert('A message to display');
-
-bsd.alert(function () {
-    let date = new Date();
-    return '&lt;b&gt;[' + date.toString() + '] A message to display&lt;/b&gt;';
-});</code></pre>
-                                </li>
+                            </li>
                                 <li>
                                     <b>options:</b> an optional set of options. If a function is provided, it will be used as dialog callback.<br/>
                                 All available options can be customized / overrided globally, see <a href="#options">options</a> sections for details.
-                                    <pre class="card"><code class="javascript">// Customized alert dialog.
-bsd.alert('A message to display', {
-    size: 'sm',
-    cancelText: "No",
-    confirmText: "Yes"
-});
+                                </li>
+                            </ul>
+
+                            <pre class="card"><code class="javascript">// Simple alert.
+
+bsd.confirm('A message to display');
 
 // Direct callback assignement.
+
 bsd.confirm('A message to display', function (confirmed) {
     if (confirmed) {
         console.log('Confirmed !');
     }
+});
+
+// Customized prompt dialog.
+
+bsd.prompt('A message to display', {
+    callback: function (value) {
+        if (value !== null) {
+            console.log(value);
+        }
+    },
+    size: 'sm',
+    cancelText: "No",
+    confirmText: "Yes"
 });</code></pre>
-                                </li>
-                            </ul>
 
                             <p>
-                                <strong>Returned value & manipulation</strong>
+                                <strong>Handling dialogs</strong>
                             </p>
 
                             <p>
                                 Each dialog function returns it's modal element as a jQuery object, so Bootstrap modal events and method can be directly used.
                             </p>
 
-                            <ul class="list-unstyled pl-sm-5">
-                                <li>
-                                    <pre class="card"><code class="javascript">// With the "show" option activated, the "show.bs.modal" event is fired before returning the modal. 
+                            <pre class="card"><code class="javascript">// With the "show" option activated, the "show.bs.modal" event is fired before returning the modal. 
 // To use that event, you need to manage modal opening manually:
 
 bsd.alert('A message to display', {show: false})
@@ -238,8 +241,6 @@ bsd.alert('A message to display')
             // ...
         })
         .modal('handleUpdate');</code></pre>
-                                </li>
-                            </ul>
                     </div>
                 </div>
             </section>
@@ -248,114 +249,32 @@ bsd.alert('A message to display')
                 <div class="row">
                     <div class="col">
                         <h2>Options and global customization</h2>
-                        <pre class="card"><code class="javascript">bsd.defaults = {
-    // COMMON OPTIONS 
-    // (available for all dialogs)
-    
-    dialog: {
-        // An value to use as id attribute for the modal: [null] | string
-        id: null,
-        
-        // Show the modal element when created : [true] | false | function
-        // If a function is provided, the modal will be shown and the function will be used on show.bs.modal event.
-        show: true,
+                        <pre class="card"><code class="javascript">bsd.defaults.dialog = {
+    // An value to use as id attribute for the modal: [null] | string
+    id: null,
 
-        // Delete the modal element on hidden : [true] |false
-        destroy: true,
+    // Show the modal element when created : [true] | false | function
+    // If a function is provided, the modal will be shown and the function will be used on show.bs.modal event.
+    show: true,
 
-        // Dialog size : [null] | 'modal-sm' | 'modal-lg' | 'modal-xl'
-        size: null,
+    // Delete the modal element on hidden : [true] |false
+    destroy: true,
 
-        // Include a backdrop element: [true] | false | 'static' 
-        // With static option, backdrop doesn't close the modal on click.
-        backdrop: true,
+    // Dialog size : [null] | 'modal-sm' | 'modal-lg' | 'modal-xl'
+    size: null,
 
-        // Closes the dialog when escape key is pressed: [true] |false
-        keyboard: true,
+    // Include a backdrop element: [true] | false | 'static' 
+    // With static option, backdrop doesn't close the modal on click.
+    backdrop: true,
 
-        // Center vertically the dialog in the window: true | [false]
-        vcenter: false,
+    // Closes the dialog when escape key is pressed: [true] |false
+    keyboard: true,
 
-        // Center horizontally the dialog text: true | [false]
-        hcenter: false
-    },
-    
-    // ALERT DIALOG
-    
-    alert: {
-        // Callback : [null] | function
-        callback: null,
+    // Center vertically the dialog in the window: true | [false]
+    vcenter: false,
 
-        // The template used to generate dialog.
-        template: <a href="#alert">See below</a>,
-
-        // The close button text.
-        closeText: "Validate",
-
-        // A class to append to close button.
-        closeClass: "btn-primary"
-    },
-    
-    // CONFIRM DIALOG
-    
-    confirm: {
-        // Callback : function
-        callback: function (confirmed) {
-            return true;
-        },
-
-        // The template used to generate dialog.
-        template: <a href="#confirm">See below</a>,
-
-        // The cancel button text.
-        cancelText: "Cancel",
-
-        // A class to append to cancel button.
-        cancelClass: "btn-light",
-
-        // The confirm button text.
-        confirmText: "Validate",
-
-        // A class to append to confirm button.
-        confirmClass: "btn-primary"
-    },
-    
-    // PROMPT DIALOG
-    
-    prompt: {
-        // Generate the prompt field : string | jQuery object | function (must return a jQuery object).
-        // The prompt field MUST have the class "bsd-field".
-        // If a function is provided, its return value MUST be compatible with jQuery "appendTo" function.
-        field: function (multiline) {
-            if (multiline) {
-                return '&lt;textarea class="form-control bsd-field"&gt;&lt;/textarea&gt;';
-            }
-            return '&lt;input type="text" class="form-control bsd-field"/&gt;';
-        },
-
-        // Callback : function
-        callback: function (value) {
-            return true;
-        },
-
-        // The template used to generate dialog.
-        template: <a href="#prompt">See below</a>,
-
-        // Is the prompt input multiline:  true | [false]
-        multiline: false,
-
-        // The cancel button text.
-        cancelText: "Cancel",
-
-        // A class to append to cancel button.
-        cancelClass: "btn-light",
-
-        // The confirm button text.
-        confirmText: "Validate",
-
-        // A class to append to confirm button.
-        confirmClass: "btn-primary"
-    }
+    // Center horizontally the dialog text: true | [false]
+    hcenter: false
 };</code></pre>
                     </div>
                 </div>
@@ -365,6 +284,23 @@ bsd.alert('A message to display')
                 <div class="row">
                     <div class="col">
                         <h2>Alert</h2>
+
+                        <p>
+                            <strong>Default options :</strong>
+                        </p>
+                        <pre class="card"><code class="javascript">bsd.defaults.alert = {
+    // Callback : [null] | function
+    callback: null,
+
+    // The template used to generate dialog.
+    template: "[See below]",
+
+    // The close button text.
+    closeText: "Validate",
+
+    // A class to append to close button.
+    closeClass: "btn-primary"
+};</code></pre>
 
                         <p>
                             <strong>Default template :</strong>
@@ -388,7 +324,7 @@ bsd.alert('A message to display')
                         <p>
 
                         </p>
-                        <pre class="card"><code class="html">/* 
+                        <pre class="card"><code class="javascript">/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -401,6 +337,31 @@ bsd.alert('A message to display')
                 <div class="row">
                     <div class="col">
                         <h2>Confirm</h2>
+
+                        <p>
+                            <strong>Default options :</strong>
+                        </p>
+                        <pre class="card"><code class="javascript">bsd.defaults.confirm = {
+    // Callback : function
+    callback: function (confirmed) {
+        return true;
+    },
+
+    // The template used to generate dialog.
+    template: "[See below]",
+
+    // The cancel button text.
+    cancelText: "Cancel",
+
+    // A class to append to cancel button.
+    cancelClass: "btn-light",
+
+    // The confirm button text.
+    confirmText: "Validate",
+
+    // A class to append to confirm button.
+    confirmClass: "btn-primary"
+};</code></pre>
 
                         <p>
                             <strong>Default template :</strong>
@@ -422,7 +383,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Events :</strong>
                         </p>
-                        <pre class="card"><code class="html">/* 
+                        <pre class="card"><code class="javascript">/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -435,6 +396,44 @@ bsd.alert('A message to display')
                 <div class="row">
                     <div class="col">
                         <h2>Prompt</h2>
+
+                        <p>
+                            <strong>Default options :</strong>
+                        </p>
+                        <pre class="card"><code class="javascript">bsd.defaults.prompt = {
+    // Generate the prompt field : string | jQuery object | function (must return a jQuery object).
+    // The prompt field MUST have the class "bsd-field".
+    // If a function is provided, its return value MUST be compatible with jQuery "appendTo" function.
+    field: function (multiline) {
+        if (multiline) {
+            return '&lt;textarea class="form-control bsd-field"&gt;&lt;/textarea&gt;';
+        }
+        return '&lt;input type="text" class="form-control bsd-field"/&gt;';
+    },
+
+    // Callback : function
+    callback: function (value) {
+        return true;
+    },
+
+    // The template used to generate dialog.
+    template: "[See below]",
+
+    // Is the prompt input multiline:  true | [false]
+    multiline: false,
+
+    // The cancel button text.
+    cancelText: "Cancel",
+
+    // A class to append to cancel button.
+    cancelClass: "btn-light",
+
+    // The confirm button text.
+    confirmText: "Validate",
+
+    // A class to append to confirm button.
+    confirmClass: "btn-primary"
+};</code></pre>
 
                         <p>
                             <strong>Default template :</strong>
@@ -457,7 +456,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Events :</strong>
                         </p>
-                        <pre class="card"><code class="html">/* 
+                        <pre class="card"><code class="javascript">/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -469,7 +468,7 @@ bsd.alert('A message to display')
             <section id="extend-bsd">
                 <div class="row">
                     <div class="col">
-                        <h2>Extend BSD</h2>
+                        <h2>Extend: make your own dialogs</h2>
 
                         <p>
                             If you need to create custom dialogs, you can easily extend BSD.

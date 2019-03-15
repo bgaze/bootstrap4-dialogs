@@ -13,7 +13,7 @@
         <style>
             body{
                 padding: 50px 0;
-            }
+            } 
 
             section{
                 padding-top: 80px;
@@ -26,8 +26,8 @@
             pre.card code{
                 padding: 20px !important;
                 font-size: 0.9em;
-                line-height: 1.2;
-            }
+                line-height: 1.2; 
+            } 
 
             .github .nav-link{
                 padding-top: 4px;
@@ -48,9 +48,9 @@
                             <a class="nav-link" href="#demo">Demo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#usage">Usage</a>
+                            <a class="nav-link" href="#usage">Usage</a> 
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item"> 
                             <a class="nav-link" href="#options">Options</a>
                         </li>
                         <li class="nav-item">
@@ -111,7 +111,7 @@
                         <h2>Usage</h2>
 
                         <p>
-                            This section applies to all provided dialog functions (bsd.alert, bsd.confirm, bsd.prompt).
+                            This section applies to all provided dialog functions (<b>bsd.alert</b>, <b>bsd.confirm</b>, <b>bsd.prompt</b>).
                         </p>
 
                         <p>
@@ -128,33 +128,28 @@
                             Dialog functions accept two arguments:
                         </p>
 
-                        <ul class="list-unstyled pl-sm-5">
+                        <ul>
                             <li>
                                 <b>title:</b> the html to insert into the dialog popup title.<br/>
-                                If a function is provided, it will be evaluated before showing the dialog.<br/>
                                 If undefined, the title element will be removed from the modal.
-                                <pre class="card"><code class="javascript">"!./src/demo/dialog-title.js"</code></pre>
                             </li>
                             <li>
                                 <b>options:</b> an optional set of options. If a function is provided, it will be used as dialog callback.<br/>
                                 All available options can be customized / overrided globally, see <a href="#options">options</a> sections for details.
-                                <pre class="card"><code class="javascript">"!./src/demo/dialog-options.js"</code></pre>
                             </li>
                         </ul>
 
+                        <pre class="card"><code class="javascript">"!./src/demo/usage-arguments.js"</code></pre>
+
                         <p>
-                            <strong>Returned value & manipulation</strong>
+                            <strong>Handling dialogs</strong>
                         </p>
 
                         <p>
                             Each dialog function returns it's modal element as a jQuery object, so Bootstrap modal events and method can be directly used.
                         </p>
 
-                        <ul class="list-unstyled pl-sm-5">
-                            <li>
-                                <pre class="card"><code class="javascript">"!./src/demo/dialog-events.js"</code></pre>
-                            </li>
-                        </ul>
+                        <pre class="card"><code class="javascript">"!./src/demo/usage-handling.js"</code></pre>
                     </div>
                 </div> 
             </section>
@@ -163,7 +158,7 @@
                 <div class="row">
                     <div class="col">
                         <h2>Options and global customization</h2>
-                        <pre class="card"><code class="javascript">"!./src/templates/defaults.js"</code></pre>
+                        <pre class="card"><code class="javascript">"!./src/dialogs/common-defaults.js"</code></pre>
                     </div>
                 </div>
             </section>
@@ -174,9 +169,14 @@
                         <h2>Alert</h2>
 
                         <p>
+                            <strong>Default options :</strong>
+                        </p>
+                        <pre class="card"><code class="javascript">"!./src/dialogs/alert-defaults.js"</code></pre>
+
+                        <p>
                             <strong>Default template :</strong>
                         </p>
-                        <pre class="card"><code class="html">"!./src/templates/alert.html"</code></pre>
+                        <pre class="card"><code class="html">"!./src/dialogs/alert.html"</code></pre>
 
                         <p>
                             <strong>Events :</strong>
@@ -184,7 +184,7 @@
                         <p>
 
                         </p>
-                        <pre class="card"><code class="html">"!./src/demo/alert-events.js"</code></pre>
+                        <pre class="card"><code class="javascript">"!./src/demo/alert-events.js"</code></pre>
                     </div>
                 </div>
             </section>
@@ -195,14 +195,19 @@
                         <h2>Confirm</h2>
 
                         <p>
+                            <strong>Default options :</strong>
+                        </p>
+                        <pre class="card"><code class="javascript">"!./src/dialogs/confirm-defaults.js"</code></pre>
+
+                        <p>
                             <strong>Default template :</strong>
                         </p>
-                        <pre class="card"><code class="html">"!./src/templates/confirm.html"</code></pre>
+                        <pre class="card"><code class="html">"!./src/dialogs/confirm.html"</code></pre>
 
                         <p>
                             <strong>Events :</strong>
                         </p>
-                        <pre class="card"><code class="html">"!./src/demo/confirm-events.js"</code></pre>
+                        <pre class="card"><code class="javascript">"!./src/demo/confirm-events.js"</code></pre>
                     </div>
                 </div>
             </section>
@@ -213,14 +218,19 @@
                         <h2>Prompt</h2>
 
                         <p>
+                            <strong>Default options :</strong>
+                        </p>
+                        <pre class="card"><code class="javascript">"!./src/dialogs/prompt-defaults.js"</code></pre>
+
+                        <p>
                             <strong>Default template :</strong>
                         </p>
-                        <pre class="card"><code class="html">"!./src/templates/prompt.html"</code></pre>
+                        <pre class="card"><code class="html">"!./src/dialogs/prompt.html"</code></pre>
 
                         <p>
                             <strong>Events :</strong>
                         </p>
-                        <pre class="card"><code class="html">"!./src/demo/prompt-events.js"</code></pre>
+                        <pre class="card"><code class="javascript">"!./src/demo/prompt-events.js"</code></pre>
                     </div>
                 </div>
             </section>
@@ -228,7 +238,7 @@
             <section id="extend-bsd">
                 <div class="row">
                     <div class="col">
-                        <h2>Extend BSD</h2>
+                        <h2>Extend: make your own dialogs</h2>
 
                         <p>
                             If you need to create custom dialogs, you can easily extend BSD.
