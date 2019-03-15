@@ -1,0 +1,18 @@
+{
+    "name": "bootstrap4-dialogs",
+    "version": "1.0.0",
+    "description": "A collection of flexible dialogs based on Bootstrap 4 modals",
+    "author": "Benjamin Gazé",
+    "license": "GPL-3.0-or-later",
+    "devDependencies": {
+        "fs": "0.0.1-security",
+        "gulp": "^3.9.1",
+        "gulp-beautify": "^3.0.0",
+        "gulp-pretty-html": "^2.0.9",
+        "gulp-rename": "^1.4.0",
+        "gulp-replace": "^1.0.0",
+        "gulp-uglify": "^3.0.1",
+        "pretty-console.log": "^2.0.0",
+        "through2": "^3.0.1"
+    }
+}
