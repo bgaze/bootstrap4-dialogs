@@ -11,25 +11,25 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/darcula.min.css">
         <style>
-            body{
+            body {
                 padding: 50px 0;
-            } 
+            }
 
-            section{
+            section {
                 padding-top: 80px;
             }
 
-            h2{
+            h2 {
                 margin-bottom: 20px;
             }
 
-            pre.card code{
+            pre.card code {
                 padding: 20px !important;
                 font-size: 0.9em;
-                line-height: 1.2; 
-            } 
+                line-height: 1.2;
+            }
 
-            .github .nav-link{
+            .github .nav-link {
                 padding-top: 4px;
                 padding-bottom: 4px;
             }
@@ -532,7 +532,7 @@ bsd.defaults.mydialog = {
 // The dialog function
 
 bsd.mydialog = function (title, subtitle, options) {
-    return this.dialog("mydialog", title, options, function ($dialog, settings) {
+    return this.dialog("mydialog", options, function ($dialog, settings) {
         // Manage dialog title.
         if (!title) {
             $('.bsd-message', $dialog).remove();
@@ -698,7 +698,7 @@ $('#mydialog-demo').click(function () {
                 // The dialog function
 
                 bsd.mydialog = function(title, subtitle, options) {
-                    return this.dialog("mydialog", title, options, function($dialog, settings) {
+                    return this.dialog("mydialog", options, function($dialog, settings) {
                         // Manage dialog title.
                         if (!title) {
                             $('.bsd-message', $dialog).remove();

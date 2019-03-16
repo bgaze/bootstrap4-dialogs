@@ -51,7 +51,7 @@ bsd.defaults.mydialog = {
 // The dialog function
 
 bsd.mydialog = function (title, subtitle, options) {
-    return this.dialog("mydialog", title, options, function ($dialog, settings) {
+    return this.dialog("mydialog", options, function ($dialog, settings) {
         // Manage dialog title.
         if (!title) {
             $('.bsd-message', $dialog).remove();

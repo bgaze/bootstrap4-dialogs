@@ -1,9 +1,19 @@
-(function ($) {
+(function (root, factory) {
+    if (typeof define === "function" && define.amd) {
+        define(["jquery"], function (jQuery) {
+            return (root.bsd = factory(jQuery));
+        });
+    } else if (typeof module === "object" && module.exports) {
+        module.exports = (root.bsd = factory(require("jquery")));
+    } else {
+        root.bsd = factory(root.jQuery);
+    }
+}(this, function ($) {
     /*
      * INITIALIZE BSD "SINGLETON"
      */
 
-    window.bsd = new function () {
+    var bsd = new function () {
         var self = this;
 
         this.defaults = {};
@@ -75,7 +85,6 @@
      * DEFAULTS COMMON SETTINGS.
      */
 
-
     "./src/dialogs/common-defaults.js"
 
     /*
@@ -101,4 +110,10 @@
     "./src/dialogs/prompt-defaults.js"
 
     "./src/dialogs/prompt-function.js"
-}(jQuery));
+
+    /*
+     * RETURN
+     */
+
+    return bsd;
+}));
