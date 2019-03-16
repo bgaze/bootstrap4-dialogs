@@ -20,7 +20,7 @@
     "homepage": "https://github.com/bgaze/bootstrap4-dialogs",
     "main": "dist/bootstrap4-dialogs.js",
     "peerDependencies": {
-        "jquery": ">=3.0",
+        "jquery": ">=1.9",
         "bootstrap": "~4.0"
     },
     "devDependencies": {

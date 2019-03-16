@@ -120,7 +120,7 @@ function readme() {
             .pipe(gulp.dest('.'));
 }
 
-// Compile all files.
+// Declare tasks.
 
 gulp.task('dist', gulp.series(lib, demo, readme));
 

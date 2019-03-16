@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>bgaze/bsd - Bootstrap 4 dialogs</title>
+        <title>Bootstrap 4 dialogs</title>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -13,6 +13,7 @@
         <style>
             body {
                 padding: 50px 0;
+                position: relative;
             }
 
             section {
@@ -33,19 +34,24 @@
                 padding-top: 4px;
                 padding-bottom: 4px;
             }
+
+            a,
+            button {
+                outline: 0 !important;
+            }
         </style>
     </head>
-    <body>
+    <body data-spy="scroll" data-target="#main-menu" data-offset="30">
         <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <a class="navbar-brand" href="#">Bootstrap 4 dialogs</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#demo">Demo</a>
+                            <a class="nav-link" href="#quick-start">Quick start</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#usage">Usage</a>
@@ -71,7 +77,7 @@
                             <a class="nav-link" href="https://www.bgaze.fr">bgaze.fr</a>
                         </li>
                         <li class="nav-item github">
-                            <a class="nav-link" href="#" title="See on Github"><i class="fa fa-2x fa-github"></i></a>
+                            <a class="nav-link" href="https://github.com/bgaze/bootstrap4-dialogs" title="See on Github"><i class="fa fa-2x fa-github"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -79,10 +85,29 @@
         </header>
 
         <div class="container">
-            <section id="demo">
+            <section id="quick-start">
                 <div class="row">
                     <div class="col">
-                        <h2>Bootstrap 4 dialogs demo</h2>
+                        <h2>Quick start</h2>
+
+                        <p>BSD requires jQuery v1.9.1+, Bootstrap 4 modal component, and Bootstrap's CSS.</p>
+
+                        <p>Several quick start options are available:</p>
+
+                        <ul>
+                            <li>Download the latest release: <a href="https://github.com/bgaze/bootstrap4-dialogs/releases">https://github.com/bgaze/bootstrap4-dialogs/releases</a></li>
+                            <li>Clone the repo: <code>git clone https://github.com/bgaze/bootstrap4-dialogs.git</code></li>
+                            <li>Install with npm: <code>npm install TODO</code></li>
+                            <li>Install with yarn: <code>yarn add TODO</code></li>
+                            <li>Install with Composer: <code>composer TODO</code></li>
+                            <li>Install with Bower: <code>bower install TODO</code></li>
+                            <li>Install via CDN: <code>TODO</code></li>
+                        </ul>
+
+                        <p>
+                            Just make sure to include required dependencies into your app, then the library script <code>bootstrap4-dialogs.min.js</code>.<br/>
+                            That it, you can just use the globally declared <code>bsd</code> object :
+                        </p>
 
                         <p>
                             <button class="btn btn-primary" id="demo1">Alert</button>
