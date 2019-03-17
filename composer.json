@@ -1,0 +1,25 @@
+{
+    "name": "bgaze/bootstrap4-dialogs",
+    "description": "A collection of flexible dialogs based on Bootstrap 4 modals",
+    "keywords": [
+        "javascript",
+        "jquery",
+        "bootstrap",
+        "dialogs",
+        "alert",
+        "confirm",
+        "prompt"
+    ],
+    "homepage": "https://github.com/bgaze/bootstrap4-dialogs",
+    "authors": [
+        {
+            "name": "Benjamin Gazé",
+            "homepage": "https://www.bgaze.fr"
+        }
+    ],
+    "license": "MIT",
+    "suggest": {
+        "components/jquery": ">=1.9.1",
+        "twbs/bootstrap": ">=4.0.0"
+    }
+}
