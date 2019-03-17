@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/darcula.min.css">
+
         <style>
             body {
                 padding: 50px 0;
@@ -69,7 +70,7 @@
                             <a class="nav-link" href="#prompt">Prompt</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#extend-bsd">Extend</a>
+                            <a class="nav-link" href="#extend-bsd">Extend BSD</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -278,6 +279,41 @@ bsd.alert('A message to display')
                 <div class="row">
                     <div class="col">
                         <h2>Options</h2>
+
+                        <p>
+                            BSD defaults options are stored into the <code>bsd.defaults</code> object and organized this way:
+                        </p>
+
+                        <ul>
+                            <li><code>bsd.defaults.dialog</code>: common options that apply to all dialogs.</li>
+                            <li><code>bsd.defaults.[dialogName]</code>: options that apply to a specific dialog only.</li>
+                        </ul>
+
+                        <p>
+                            You can easily make application wide customizations:
+                        </p>
+
+                        <pre class="card"><code class="javascript language-javascript">// Center vertically all dialogs.
+bsd.defaults.dialog.vcenter = true;
+
+// Center texts horizontally for all dialogs.
+bsd.defaults.dialog.hcenter = true;
+
+// Use small size for all dialogs except prompt.
+bsd.defaults.dialog.size = 'modal-sm';
+bsd.defaults.prompt.size = null;
+
+// Define default text for alert, confirm and prompt.
+bsd.defaults.alert.closeText = 'OK';
+bsd.defaults.confirm.cancelText = 'No';
+bsd.defaults.confirm.confirmText = 'Yes';
+bsd.defaults.prompt.cancelText = 'No';
+bsd.defaults.prompt.confirmText = 'Yes';</code></pre>
+
+                        <p>
+                            Here is the list of available common options:
+                        </p>
+
                         <pre class="card"><code class="javascript language-javascript">bsd.defaults.dialog = {
     // An value to use as id attribute for the modal: [null] | string
     id: null,
@@ -315,7 +351,41 @@ bsd.alert('A message to display')
                         <h2>Alert</h2>
 
                         <p>
+                            <strong>Usage :</strong>
+                        </p>
+                        <p>
+                            When using a callback function, it will receive as argument the original "modal dismiss" event.
+                        </p>
+                        <pre class="card"><code class="javascript language-javascript">// Simple call.
+
+bsd.alert('Lorem ipsum dolor sit amet');
+
+// Call with options.
+
+bsd.alert('Lorem ipsum dolor sit amet', {
+    closeText: "OK",
+    closeClass: "btn-success"
+});
+
+// Callback
+
+bsd.alert('Lorem ipsum dolor sit amet', function (event) {
+    // ...
+});
+
+bsd.alert('Lorem ipsum dolor sit amet', {
+    closeText: "OK",
+    closeClass: "btn-success",
+    callback: function (event) {
+        // ...
+    }
+});</code></pre>
+
+                        <p>
                             <strong>Default options :</strong>
+                        </p>
+                        <p>
+                            You can customize these options as descriped in the options section.
                         </p>
                         <pre class="card"><code class="javascript language-javascript">bsd.defaults.alert = {
     // Callback : [null] | function
@@ -334,6 +404,9 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Default template :</strong>
                         </p>
+                        <p>
+                            If you need to change this template, just make sure to keep required <code>bsd-*</code> classes.
+                        </p>
                         <pre class="card"><code class="html language-html">&lt;div class="modal fade bsd-dialog bsd-alert" tabindex="-1" role="dialog" aria-hidden="true"&gt;
     &lt;div class="modal-dialog" role="document"&gt;
         &lt;div class="modal-content"&gt;
@@ -346,18 +419,6 @@ bsd.alert('A message to display')
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-
-                        <p>
-                            <strong>Events :</strong>
-                        </p>
-                        <p>
-
-                        </p>
-                        <pre class="card"><code class="javascript language-javascript">/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */</code></pre>
                     </div>
                 </div>
             </section>
@@ -368,11 +429,49 @@ bsd.alert('A message to display')
                         <h2>Confirm</h2>
 
                         <p>
+                            <strong>Usage :</strong>
+                        </p>
+                        <p>
+                            The callback function will receive two arguments:
+                        </p>
+                        <ol>
+                            <li>The confirmed status as a boolean.</li>
+                            <li>The original event that raised the callback.</li>
+                        </ol>
+                        <p>
+                            It must return a boolean indicating if the dialog should be closed.
+                        </p>
+                        <pre class="card"><code class="javascript language-javascript">// Simple call.
+
+bsd.confirm('Lorem ipsum dolor sit amet', function (confirmed, event) {
+    if (confirmed) {
+        // ...
+    }
+    return true;
+});
+
+// Call with options.
+
+bsd.confirm('Lorem ipsum dolor sit amet', {
+    confirmText: "Delete",
+    confirmClass: "btn-danger",
+    callback: function (confirmed, event) {
+        if (confirmed) {
+            // ...
+        }
+        return true;
+    }
+});</code></pre>
+
+                        <p>
                             <strong>Default options :</strong>
+                        </p>
+                        <p>
+                            You can customize these options as descriped in the options section.
                         </p>
                         <pre class="card"><code class="javascript language-javascript">bsd.defaults.confirm = {
     // Callback : function
-    callback: function (confirmed) {
+    callback: function (confirmed, event) {
         return true;
     },
 
@@ -395,6 +494,9 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Default template :</strong>
                         </p>
+                        <p>
+                            If you need to change this template, just make sure to keep required <code>bsd-*</code> classes.
+                        </p>
                         <pre class="card"><code class="html language-html">&lt;div class="modal fade bsd-dialog bsd-confirm" tabindex="-1" role="dialog" aria-hidden="true"&gt;
     &lt;div class="modal-dialog" role="document"&gt;
         &lt;div class="modal-content"&gt;
@@ -408,15 +510,6 @@ bsd.alert('A message to display')
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-
-                        <p>
-                            <strong>Events :</strong>
-                        </p>
-                        <pre class="card"><code class="javascript language-javascript">/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */</code></pre>
                     </div>
                 </div>
             </section>
@@ -427,7 +520,61 @@ bsd.alert('A message to display')
                         <h2>Prompt</h2>
 
                         <p>
+                            <strong>Usage :</strong>
+                        </p>
+                        <p>
+                            The callback function will receive two arguments:
+                        </p>
+                        <ol>
+                            <li>The prompt field value, or <code>null</code> if canceled.</li>
+                            <li>The original event that raised the callback.</li>
+                        </ol>
+                        <p>
+                            It must return a boolean indicating if the dialog should be closed.
+                        </p>
+                        <pre class="card"><code class="javascript language-javascript">// Simple call.
+
+bsd.prompt('Lorem ipsum dolor sit amet', function (value, event) {
+    if (value === null) {
+        return true;
+    }
+
+    if (value.trim() === '') {
+        bsd.alert('You must provide a value!');
+        return false;
+    }
+
+    // ...
+
+    return true;
+});
+
+// Call with options.
+
+bsd.prompt('Lorem ipsum dolor sit amet', {
+    confirmText: "Save",
+    confirmClass: "btn-success",
+    callback: function (value, event) {
+        if (value === null) {
+            return true;
+        }
+
+        if (value.trim() === '') {
+            bsd.alert('You must provide a value!');
+            return false;
+        }
+
+        // ...
+
+        return true;
+    }
+});</code></pre>
+
+                        <p>
                             <strong>Default options :</strong>
+                        </p>
+                        <p>
+                            You can customize these options as descriped in the options section.
                         </p>
                         <pre class="card"><code class="javascript language-javascript">bsd.defaults.prompt = {
     // Generate the prompt field : string | jQuery object | function (must return a jQuery object).
@@ -441,7 +588,7 @@ bsd.alert('A message to display')
     },
 
     // Callback : function
-    callback: function (value) {
+    callback: function (value, event) {
         return true;
     },
 
@@ -467,6 +614,9 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Default template :</strong>
                         </p>
+                        <p>
+                            If you need to change this template, just make sure to keep required <code>bsd-*</code> classes.
+                        </p>
                         <pre class="card"><code class="html language-html">&lt;div class="modal fade bsd-dialog bsd-prompt" tabindex="-1" role="dialog" aria-hidden="true"&gt;
     &lt;div class="modal-dialog" role="document"&gt;
         &lt;div class="modal-content"&gt;
@@ -481,15 +631,6 @@ bsd.alert('A message to display')
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-
-                        <p>
-                            <strong>Events :</strong>
-                        </p>
-                        <pre class="card"><code class="javascript language-javascript">/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */</code></pre>
                     </div>
                 </div>
             </section>
@@ -497,22 +638,31 @@ bsd.alert('A message to display')
             <section id="extend-bsd">
                 <div class="row">
                     <div class="col">
-                        <h2>Extend: make your own dialogs</h2>
+                        <h2>Extend BSD</h2>
 
                         <p>
-                            If you need to create custom dialogs, you can easily extend BSD.
+                            If you need to create custom dialogs, you can easily extend BSD.<br/>
+                            Please find below a detailed example.
                         </p>
 
-                        <p>
-                            Here is an example :
-                            <off><button id="mydialog-demo" class="btn btn-sm btn-primary">Try it!</button></off>
-                        </p>
+                            <off>
+                                <p>
+                                    <button id="mydialog-demo" class="btn btn-primary">Try it!</button>
+                                </p>
+                            </off>
 
-                        <pre class="card"><code class="jvascript language-jvascript">// The dialog options.
-// Remember that they inherit from bsd.defaults.dialog
-
-bsd.defaults.mydialog = {
-    // Callback : [null] | function
+                            <p>
+                                <strong>Define your dialog options and defaults.</strong>
+                            </p>
+                            <p>
+                                Simply append them to <code>bsd.defaults</code>. The key MUST be your dialog name.<br/>
+                            Remember that your dialog options inherit from <code>bsd.defaults.dialog</code>, so you can override them.
+                            </p>
+                            <p>
+                                The only required option that must be provided is the dialog template (<code>template</code> key).
+                            </p>
+                            <pre class="card"><code class="javascript language-javascript">bsd.defaults.mydialog = {
+    // Callback : function
     callback: function () {
         return true;
     },
@@ -522,7 +672,7 @@ bsd.defaults.mydialog = {
                     &lt;div class="modal-dialog" role="document"&gt;
                         &lt;div class="modal-content"&gt;
                             &lt;div class="modal-header"&gt;
-                                &lt;h5 class="modal-title bsd-message"&gt;&lt;/h5&gt;
+                                &lt;h5 class="modal-title bsd-title"&gt;&lt;/h5&gt;
                                 &lt;button type="button" class="close" data-dismiss="modal" aria-label="Close"&gt;
                                     &lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;
                                 &lt;/button&gt;
@@ -556,20 +706,36 @@ bsd.defaults.mydialog = {
     // Yes button.
     yesText: "Yes",
     yesClass: "btn-success"
-};
+};</code></pre>
 
-// The dialog function
-
-bsd.mydialog = function (title, subtitle, options) {
+                            <p>
+                                <strong>Create the dialog function.</strong>
+                            </p>
+                            <p>
+                                You can easily generate the dialog thanks to the <code>bsd.dialog</code> function wich :
+                            </p>
+                            <ol>
+                                <li>Prepares the dialog settings by merging provided options, dialog defaults and common defaults.</li>
+                                <li>Generates the dialog HTML and insert it into the DOM.</li>
+                                <li>Initializes Bootstrap 4 Modal based on settings, keeping it hidden.</li>
+                                <li>Manages the dialog removal on <code>hidden.bs.modal</code> event based on <code>destroy</code> option.</li>
+                                <li>Manages the <code>show.bs.modal</code> event based on <code>show</code> option.</li>
+                                <li>Customizes the dialog using a provided function.</li>
+                                <li>Manages the dialog opening based on <code>show</code> option.</li>
+                                <li>Returns the dialog jQuery object.</li>
+                            </ol>
+                            <p>
+                                It requires three arguments :
+                            </p>
+                            <ol>
+                                <li>The dialog defaults key name into <code>bsd.defaults</code>.</li>
+                                <li>The option set provided by the user.</li>
+                                <li>A function to customize the dialog. When called, it will receive as arguments the dialog jQuery object and the merged settings.</li>
+                            </ol>
+                            <pre class="card"><code class="javascript language-javascript">bsd.mydialog = function (title, subtitle, options) {
     return this.dialog("mydialog", options, function ($dialog, settings) {
-        // Manage dialog title.
-        if (!title) {
-            $('.bsd-message', $dialog).remove();
-        } else {
-            $('.bsd-message', $dialog).html(title);
-        }
-
-        // Manage subtitle.
+        // Manage dialog texts.
+        $('.bsd-title', $dialog).html(title || '');
         $('.bsd-subtitle', $dialog).html(subtitle || '');
 
         // Customize buttons.
@@ -577,7 +743,7 @@ bsd.mydialog = function (title, subtitle, options) {
         $('.bsd-maybe', $dialog).addClass(settings.maybeClass).text(settings.maybeText);
         $('.bsd-yes', $dialog).addClass(settings.yesClass).text(settings.yesText);
 
-        // Manage dialog events.
+        // Manage dialog callback.
         if (typeof settings.callback === 'function') {
             // Close on Escape key.
             $dialog.on('keydown.dismiss.bs.modal', function (e) {
@@ -606,11 +772,15 @@ bsd.mydialog = function (title, subtitle, options) {
             });
         }
     });
-};
+};</code></pre>
 
-// Usage
-
-$('#mydialog-demo').click(function () {
+                            <p>
+                                <strong>Usage:</strong>
+                            </p>
+                            <p>
+                                Simply use your function like this:
+                            </p>
+                            <pre class="card"><code class="javascript language-javascript">$('#mydialog-demo').click(function () {
     var subtitle = 'Phasellus ultricies dolor ac velit tempus lobortis.'
             + '&lt;br&gt;Duis ipsum justo, viverra et molestie eget, congue in nunc.';
 
@@ -629,6 +799,7 @@ $('#mydialog-demo').click(function () {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="bootstrap4-dialogs.js" type="text/javascript"></script>
+
         <script type="text/javascript">
             hljs.initHighlightingOnLoad();
 
@@ -674,11 +845,8 @@ $('#mydialog-demo').click(function () {
                 });
 
 
-                // The dialog options.
-                // Remember that they inherit from bsd.defaults.dialog
-
                 bsd.defaults.mydialog = {
-                    // Callback : [null] | function
+                    // Callback : function
                     callback: function() {
                         return true;
                     },
@@ -688,7 +856,7 @@ $('#mydialog-demo').click(function () {
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title bsd-message"></h5>
+                                <h5 class="modal-title bsd-title"></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -723,19 +891,10 @@ $('#mydialog-demo').click(function () {
                     yesText: "Yes",
                     yesClass: "btn-success"
                 };
-
-                // The dialog function
-
                 bsd.mydialog = function(title, subtitle, options) {
                     return this.dialog("mydialog", options, function($dialog, settings) {
-                        // Manage dialog title.
-                        if (!title) {
-                            $('.bsd-message', $dialog).remove();
-                        } else {
-                            $('.bsd-message', $dialog).html(title);
-                        }
-
-                        // Manage subtitle.
+                        // Manage dialog texts.
+                        $('.bsd-title', $dialog).html(title || '');
                         $('.bsd-subtitle', $dialog).html(subtitle || '');
 
                         // Customize buttons.
@@ -743,7 +902,7 @@ $('#mydialog-demo').click(function () {
                         $('.bsd-maybe', $dialog).addClass(settings.maybeClass).text(settings.maybeText);
                         $('.bsd-yes', $dialog).addClass(settings.yesClass).text(settings.yesText);
 
-                        // Manage dialog events.
+                        // Manage dialog callback.
                         if (typeof settings.callback === 'function') {
                             // Close on Escape key.
                             $dialog.on('keydown.dismiss.bs.modal', function(e) {
@@ -773,9 +932,6 @@ $('#mydialog-demo').click(function () {
                         }
                     });
                 };
-
-                // Usage
-
                 $('#mydialog-demo').click(function() {
                     var subtitle = 'Phasellus ultricies dolor ac velit tempus lobortis.' +
                         '<br>Duis ipsum justo, viverra et molestie eget, congue in nunc.';
@@ -785,7 +941,6 @@ $('#mydialog-demo').click(function () {
                         return true;
                     });
                 });
-
             }(jQuery));
         </script>
     </body>

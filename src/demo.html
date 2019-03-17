@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/darcula.min.css">
+
         <style>
             body{
                 padding: 50px 0;
@@ -68,7 +69,7 @@
                             <a class="nav-link" href="#prompt">Prompt</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#extend-bsd">Extend</a>
+                            <a class="nav-link" href="#extend-bsd">Extend BSD</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -112,7 +113,7 @@
 
                         <off>
                             <p>
-                                "./src/demo/demo.html"
+                                "./src/doc/demo.html"
                             </p>
 
                             <p>
@@ -124,10 +125,10 @@
 
                         <div class="collapse" id="demo-collapse">
                             <p><strong>HTML</strong></p>
-                            <pre class="card"><code class="html language-html">"!./src/demo/demo.html"</code></pre>
+                            <pre class="card"><code class="html language-html">"!./src/doc/demo.html"</code></pre>
 
                             <p><strong>Javascript</strong></p>
-                            <pre class="card"><code class="javascript language-javascript">"!./src/demo/demo.js"</code></pre>
+                            <pre class="card"><code class="javascript language-javascript">"!./src/doc/demo.js"</code></pre>
                         </div>
                     </div>
                 </div>
@@ -167,7 +168,7 @@
                             </li>
                         </ul>
 
-                        <pre class="card"><code class="javascript language-javascript">"!./src/demo/usage-arguments.js"</code></pre>
+                        <pre class="card"><code class="javascript language-javascript">"!./src/doc/usage-arguments.js"</code></pre>
 
                         <p>
                             <strong>Handling dialogs</strong>
@@ -177,7 +178,7 @@
                             Each dialog function returns it's modal element as a jQuery object, so Bootstrap modal events and method can be directly used.
                         </p>
 
-                        <pre class="card"><code class="javascript language-javascript">"!./src/demo/usage-handling.js"</code></pre>
+                        <pre class="card"><code class="javascript language-javascript">"!./src/doc/usage-handling.js"</code></pre>
                     </div>
                 </div> 
             </section>
@@ -186,6 +187,26 @@
                 <div class="row">
                     <div class="col">
                         <h2>Options</h2>
+
+                        <p>
+                            BSD defaults options are stored into the <code>bsd.defaults</code> object and organized this way:
+                        </p>
+
+                        <ul>
+                            <li><code>bsd.defaults.dialog</code>: common options that apply to all dialogs.</li>
+                            <li><code>bsd.defaults.[dialogName]</code>: options that apply to a specific dialog only.</li>
+                        </ul>
+
+                        <p>
+                            You can easily make application wide customizations:
+                        </p>
+
+                        <pre class="card"><code class="javascript language-javascript">"!./src/doc/options.js"</code></pre>
+
+                        <p>
+                            Here is the list of available common options:
+                        </p>
+
                         <pre class="card"><code class="javascript language-javascript">"!./src/dialogs/common-defaults.js"</code></pre>
                     </div>
                 </div>
@@ -197,22 +218,28 @@
                         <h2>Alert</h2>
 
                         <p>
+                            <strong>Usage :</strong>
+                        </p>
+                        <p>
+                            When using a callback function, it will receive as argument the original "modal dismiss" event.
+                        </p>
+                        <pre class="card"><code class="javascript language-javascript">"!./src/doc/alert.js"</code></pre>
+
+                        <p>
                             <strong>Default options :</strong>
+                        </p>
+                        <p>
+                            You can customize these options as descriped in the options section.
                         </p>
                         <pre class="card"><code class="javascript language-javascript">"!./src/dialogs/alert-defaults.js"</code></pre>
 
                         <p>
                             <strong>Default template :</strong>
                         </p>
+                        <p>
+                            If you need to change this template, just make sure to keep required <code>bsd-*</code> classes.
+                        </p>
                         <pre class="card"><code class="html language-html">"!./src/dialogs/alert.html"</code></pre>
-
-                        <p>
-                            <strong>Events :</strong>
-                        </p>
-                        <p>
-
-                        </p>
-                        <pre class="card"><code class="javascript language-javascript">"!./src/demo/alert-events.js"</code></pre>
                     </div>
                 </div>
             </section>
@@ -223,19 +250,35 @@
                         <h2>Confirm</h2>
 
                         <p>
+                            <strong>Usage :</strong>
+                        </p>
+                        <p>
+                            The callback function will receive two arguments:
+                        </p>
+                        <ol>
+                            <li>The confirmed status as a boolean.</li>
+                            <li>The original event that raised the callback.</li>
+                        </ol>
+                        <p>
+                            It must return a boolean indicating if the dialog should be closed.
+                        </p>
+                        <pre class="card"><code class="javascript language-javascript">"!./src/doc/confirm.js"</code></pre>
+
+                        <p>
                             <strong>Default options :</strong>
+                        </p>
+                        <p>
+                            You can customize these options as descriped in the options section.
                         </p>
                         <pre class="card"><code class="javascript language-javascript">"!./src/dialogs/confirm-defaults.js"</code></pre>
 
                         <p>
                             <strong>Default template :</strong>
                         </p>
-                        <pre class="card"><code class="html language-html">"!./src/dialogs/confirm.html"</code></pre>
-
                         <p>
-                            <strong>Events :</strong>
+                            If you need to change this template, just make sure to keep required <code>bsd-*</code> classes.
                         </p>
-                        <pre class="card"><code class="javascript language-javascript">"!./src/demo/confirm-events.js"</code></pre>
+                        <pre class="card"><code class="html language-html">"!./src/dialogs/confirm.html"</code></pre>
                     </div>
                 </div>
             </section>
@@ -246,19 +289,35 @@
                         <h2>Prompt</h2>
 
                         <p>
+                            <strong>Usage :</strong>
+                        </p>
+                        <p>
+                            The callback function will receive two arguments:
+                        </p>
+                        <ol>
+                            <li>The prompt field value, or <code>null</code> if canceled.</li>
+                            <li>The original event that raised the callback.</li>
+                        </ol>
+                        <p>
+                            It must return a boolean indicating if the dialog should be closed.
+                        </p>
+                        <pre class="card"><code class="javascript language-javascript">"!./src/doc/prompt.js"</code></pre>
+
+                        <p>
                             <strong>Default options :</strong>
+                        </p>
+                        <p>
+                            You can customize these options as descriped in the options section.
                         </p>
                         <pre class="card"><code class="javascript language-javascript">"!./src/dialogs/prompt-defaults.js"</code></pre>
 
                         <p>
                             <strong>Default template :</strong>
                         </p>
-                        <pre class="card"><code class="html language-html">"!./src/dialogs/prompt.html"</code></pre>
-
                         <p>
-                            <strong>Events :</strong>
+                            If you need to change this template, just make sure to keep required <code>bsd-*</code> classes.
                         </p>
-                        <pre class="card"><code class="javascript language-javascript">"!./src/demo/prompt-events.js"</code></pre>
+                        <pre class="card"><code class="html language-html">"!./src/dialogs/prompt.html"</code></pre>
                     </div>
                 </div>
             </section>
@@ -266,18 +325,64 @@
             <section id="extend-bsd">
                 <div class="row">
                     <div class="col">
-                        <h2>Extend: make your own dialogs</h2>
+                        <h2>Extend BSD</h2>
 
                         <p>
-                            If you need to create custom dialogs, you can easily extend BSD.
+                            If you need to create custom dialogs, you can easily extend BSD.<br/>
+                            Please find below a detailed example.
                         </p>
+
+                        <off>
+                            <p>
+                                <button id="mydialog-demo" class="btn btn-primary">Try it!</button>
+                            </p>
+                        </off>
 
                         <p>
-                            Here is an example :
-                            <off><button id="mydialog-demo" class="btn btn-sm btn-primary">Try it!</button></off>
+                            <strong>Define your dialog options and defaults.</strong>
                         </p>
+                        <p>
+                            Simply append them to <code>bsd.defaults</code>. The key MUST be your dialog name.<br/>
+                            Remember that your dialog options inherit from <code>bsd.defaults.dialog</code>, so you can override them.
+                        </p>
+                        <p>
+                            The only required option that must be provided is the dialog template (<code>template</code> key).
+                        </p>
+                        <pre class="card"><code class="javascript language-javascript">"!./src/doc/custom-defaults.js"</code></pre>
 
-                        <pre class="card"><code class="jvascript language-jvascript">"!./src/demo/custom.js"</code></pre>
+                        <p>
+                            <strong>Create the dialog function.</strong>
+                        </p>
+                        <p>
+                            You can easily generate the dialog thanks to the <code>bsd.dialog</code> function wich :
+                        </p>
+                        <ol>
+                            <li>Prepares the dialog settings by merging provided options, dialog defaults and common defaults.</li>
+                            <li>Generates the dialog HTML and insert it into the DOM.</li>
+                            <li>Initializes Bootstrap 4 Modal based on settings, keeping it hidden.</li>
+                            <li>Manages the dialog removal on <code>hidden.bs.modal</code> event based on <code>destroy</code> option.</li>
+                            <li>Manages the <code>show.bs.modal</code> event based on <code>show</code> option.</li>
+                            <li>Customizes the dialog using a provided function.</li>
+                            <li>Manages the dialog opening based on <code>show</code> option.</li>
+                            <li>Returns the dialog jQuery object.</li>
+                        </ol>
+                        <p>
+                            It requires three arguments :
+                        </p>
+                        <ol>
+                            <li>The dialog defaults key name into <code>bsd.defaults</code>.</li>
+                            <li>The option set provided by the user.</li>
+                            <li>A function to customize the dialog. When called, it will receive as arguments the dialog jQuery object and the merged settings.</li>
+                        </ol>
+                        <pre class="card"><code class="javascript language-javascript">"!./src/doc/custom-function.js"</code></pre>
+
+                        <p>
+                            <strong>Usage:</strong>
+                        </p>
+                        <p>
+                            Simply use your function like this:
+                        </p>
+                        <pre class="card"><code class="javascript language-javascript">"!./src/doc/custom-usage.js"</code></pre>
                     </div>
                 </div>
             </section>
@@ -288,13 +393,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="bootstrap4-dialogs.js" type="text/javascript"></script>
+
         <script type="text/javascript">
             hljs.initHighlightingOnLoad();
 
             (function ($) {
-                "./src/demo/demo.js"
+                "./src/doc/demo.js"
 
-                "./src/demo/custom.js"
+                "./src/doc/custom-defaults.js"
+                "./src/doc/custom-function.js"
+                "./src/doc/custom-usage.js"
             }(jQuery));
         </script>
     </body>

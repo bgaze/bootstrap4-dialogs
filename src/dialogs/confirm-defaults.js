@@ -1,6 +1,6 @@
 bsd.defaults.confirm = {
     // Callback : function
-    callback: function (confirmed) {
+    callback: function (confirmed, event) {
         return true;
     },
 

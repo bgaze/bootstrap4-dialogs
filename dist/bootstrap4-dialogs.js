@@ -159,7 +159,7 @@
 
     bsd.defaults.confirm = {
         // Callback : function
-        callback: function(confirmed) {
+        callback: function(confirmed, event) {
             return true;
         },
 
@@ -232,7 +232,7 @@
         },
 
         // Callback : function
-        callback: function(value) {
+        callback: function(value, event) {
             return true;
         },
 

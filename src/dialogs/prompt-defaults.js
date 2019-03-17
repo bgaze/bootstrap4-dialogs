@@ -10,7 +10,7 @@ bsd.defaults.prompt = {
     },
 
     // Callback : function
-    callback: function (value) {
+    callback: function (value, event) {
         return true;
     },
 
