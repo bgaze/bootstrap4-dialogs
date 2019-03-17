@@ -1,6 +1,6 @@
 {
   "name": "bgaze-bootstrap4-dialogs",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "MIT",
   "description": "A collection of flexible dialogs based on Bootstrap 4 modals",
   "author": {
@@ -17,7 +17,7 @@
   ],
   "repository": "github:bgaze/bootstrap4-dialogs",
   "bugs": "https://github.com/bgaze/bootstrap4-dialogs/issues",
-  "homepage": "https://github.com/bgaze/bootstrap4-dialogs",
+  "homepage": "https://www.bgaze.fr/bootstrap4-dialogs",
   "main": "dist/bootstrap4-dialogs.js",
   "peerDependencies": {
     "jquery": ">=1.9",

@@ -2,6 +2,8 @@
 
 ## Quick start
 
+> Doc and demos here : [https://www.bgaze.fr/bootstrap4-dialogs](https://www.bgaze.fr/bootstrap4-dialogs)
+
 BSD requires jQuery v1.9.1+, Bootstrap 4 modal component, and Bootstrap's CSS.
 
 Several quick start options are available:
