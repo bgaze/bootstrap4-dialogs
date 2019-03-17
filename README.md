@@ -9,9 +9,8 @@ Several quick start options are available:
 *   Download the latest release: [https://github.com/bgaze/bootstrap4-dialogs/releases](https://github.com/bgaze/bootstrap4-dialogs/releases)
 *   Clone the repo: `git clone https://github.com/bgaze/bootstrap4-dialogs.git`
 *   Install with npm: `npm i bgaze-bootstrap4-dialogs`
-*   Install with yarn: `yarn add TODO`
+*   Install with yarn: `yarn add bgaze-bootstrap4-dialogs`
 *   Install with Composer: `composer require bgaze/bootstrap4-dialogs`
-*   Install with Bower: `bower install TODO`
 *   Install via CDN: `TODO`
 
 Just make sure to include required dependencies into your app, then the library script `bootstrap4-dialogs.min.js`.  
