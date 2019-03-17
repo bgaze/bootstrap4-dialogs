@@ -1,42 +1,43 @@
 {
-    "name": "bootstrap4-dialogs",
-    "version": "1.0.0",
-    "license": "MIT",
-    "description": "A collection of flexible dialogs based on Bootstrap 4 modals",
-    "author": {
-        "name": "Benjamin Gazé",
-        "email": "benjamin@bgaze.fr",
-        "url": "https://www.bgaze.fr"
-    },
-    "keywords": [
-        "bootstrap",
-        "dialogs",
-        "alert",
-        "confirm",
-        "prompt"
-    ],
-    "repository": "github:bgaze/bootstrap4-dialogs",
-    "bugs": "https://github.com/bgaze/bootstrap4-dialogs/issues",
-    "homepage": "https://github.com/bgaze/bootstrap4-dialogs",
-    "main": "dist/bootstrap4-dialogs.js",
-    "peerDependencies": {
-        "jquery": ">=1.9",
-        "bootstrap": "~4.0"
-    },
-    "devDependencies": {
-        "chalk": "^2.4.2",
-        "fs": "0.0.1-security",
-        "gulp": "^4.0.0",
-        "gulp-beautify": "^3.0.0",
-        "gulp-pretty-html": "^2.0.9",
-        "gulp-rename": "^1.4.0",
-        "gulp-replace": "^1.0.0",
-        "gulp-uglify": "^3.0.1",
-        "through2": "^3.0.1"
-    },
-    "scripts": {
-        "dev": "gulp",
-        "watch": "gulp watch",
-        "dist": "gulp dist"
-    }
+  "name": "bootstrap4-dialogs",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "A collection of flexible dialogs based on Bootstrap 4 modals",
+  "author": {
+    "name": "Benjamin Gazé",
+    "email": "benjamin@bgaze.fr",
+    "url": "https://www.bgaze.fr"
+  },
+  "keywords": [
+    "bootstrap",
+    "dialogs",
+    "alert",
+    "confirm",
+    "prompt"
+  ],
+  "repository": "github:bgaze/bootstrap4-dialogs",
+  "bugs": "https://github.com/bgaze/bootstrap4-dialogs/issues",
+  "homepage": "https://github.com/bgaze/bootstrap4-dialogs",
+  "main": "dist/bootstrap4-dialogs.js",
+  "peerDependencies": {
+    "jquery": ">=1.9",
+    "bootstrap": "~4.0"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.2",
+    "fs": "0.0.1-security",
+    "gulp": "^4.0.0",
+    "gulp-beautify": "^3.0.0",
+    "gulp-pretty-html": "^2.0.9",
+    "gulp-rename": "^1.4.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-uglify": "^3.0.1",
+    "through2": "^3.0.1",
+    "turndown": "^5.0.3"
+  },
+  "scripts": {
+    "dev": "gulp",
+    "watch": "gulp watch",
+    "dist": "gulp dist"
+  }
 }

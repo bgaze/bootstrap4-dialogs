@@ -88,6 +88,8 @@
             <section id="quick-start">
                 <div class="row">
                     <div class="col">
+                        <h1 style="display: none;">Bootstrap 4 dialogs</h1>
+
                         <h2>Quick start</h2>
 
                         <p>BSD requires jQuery v1.9.1+, Bootstrap 4 modal component, and Bootstrap's CSS.</p>
@@ -106,34 +108,36 @@
 
                         <p>
                             Just make sure to include required dependencies into your app, then the library script <code>bootstrap4-dialogs.min.js</code>.<br/>
-                            That it, you can just use the globally declared <code>bsd</code> object :
+                            That's it! You can use the globally declared <code>bsd</code> object :
                         </p>
 
-                        <p>
-                            <button class="btn btn-primary" id="demo1">Alert</button>
-                            <button class="btn btn-primary" id="demo2">Confirm</button>
-                            <button class="btn btn-primary" id="demo3">Prompt</button>
-                            <button class="btn btn-primary" id="demo4">Multiline prompt</button>
-                            <button class="btn btn-primary" id="demo5">Customized dialog</button>
+                        <off>
+                            <p>
+                                <button class="btn btn-primary" id="demo1">Alert</button>
+                                <button class="btn btn-primary" id="demo2">Confirm</button>
+                                <button class="btn btn-primary" id="demo3">Prompt</button>
+                                <button class="btn btn-primary" id="demo4">Multiline prompt</button>
+                                <button class="btn btn-primary" id="demo5">Customized dialog</button>
 
-                        </p>
+                            </p>
 
-                        <p>
-                            <a data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
-                                Show code
-                            </a>
-                        </p>
+                            <p>
+                                <a data-toggle="collapse" href="#demo-collapse" role="button" aria-expanded="false" aria-controls="demo-collapse">
+                                    Show code
+                                </a>
+                            </p>
+                        </off>
 
-                        <div class="collapse" id="collapse1">
+                        <div class="collapse" id="demo-collapse">
                             <p><strong>HTML</strong></p>
-                            <pre class="card"><code class="html">&lt;button class="btn btn-primary" id="demo1"&gt;Alert&lt;/button&gt;
+                            <pre class="card"><code class="html language-html">&lt;button class="btn btn-primary" id="demo1"&gt;Alert&lt;/button&gt;
 &lt;button class="btn btn-primary" id="demo2"&gt;Confirm&lt;/button&gt;
 &lt;button class="btn btn-primary" id="demo3"&gt;Prompt&lt;/button&gt;
 &lt;button class="btn btn-primary" id="demo4"&gt;Multiline prompt&lt;/button&gt;
 &lt;button class="btn btn-primary" id="demo5"&gt;Customized dialog&lt;/button&gt;</code></pre>
 
                             <p><strong>Javascript</strong></p>
-                            <pre class="card"><code class="javascript">$('#demo1').click(function () {
+                            <pre class="card"><code class="javascript language-javascript">$('#demo1').click(function () {
     bsd.alert('Lorem ipsum dolor sit amet');
 });
 
@@ -209,7 +213,7 @@ $('#demo5').click(function () {
                                 </li>
                             </ul>
 
-                            <pre class="card"><code class="javascript">// Simple alert.
+                            <pre class="card"><code class="javascript language-javascript">// Simple alert.
 
 bsd.confirm('A message to display');
 
@@ -242,7 +246,7 @@ bsd.prompt('A message to display', {
                                 Each dialog function returns it's modal element as a jQuery object, so Bootstrap modal events and method can be directly used.
                             </p>
 
-                            <pre class="card"><code class="javascript">// With the "show" option activated, the "show.bs.modal" event is fired before returning the modal. 
+                            <pre class="card"><code class="javascript language-javascript">// With the "show" option activated, the "show.bs.modal" event is fired before returning the modal. 
 // To use that event, you need to manage modal opening manually:
 
 bsd.alert('A message to display', {show: false})
@@ -273,8 +277,8 @@ bsd.alert('A message to display')
             <section id="options">
                 <div class="row">
                     <div class="col">
-                        <h2>Options and global customization</h2>
-                        <pre class="card"><code class="javascript">bsd.defaults.dialog = {
+                        <h2>Options</h2>
+                        <pre class="card"><code class="javascript language-javascript">bsd.defaults.dialog = {
     // An value to use as id attribute for the modal: [null] | string
     id: null,
 
@@ -313,7 +317,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Default options :</strong>
                         </p>
-                        <pre class="card"><code class="javascript">bsd.defaults.alert = {
+                        <pre class="card"><code class="javascript language-javascript">bsd.defaults.alert = {
     // Callback : [null] | function
     callback: null,
 
@@ -330,7 +334,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Default template :</strong>
                         </p>
-                        <pre class="card"><code class="html">&lt;div class="modal fade bsd-dialog bsd-alert" tabindex="-1" role="dialog" aria-hidden="true"&gt;
+                        <pre class="card"><code class="html language-html">&lt;div class="modal fade bsd-dialog bsd-alert" tabindex="-1" role="dialog" aria-hidden="true"&gt;
     &lt;div class="modal-dialog" role="document"&gt;
         &lt;div class="modal-content"&gt;
             &lt;div class="modal-body"&gt;
@@ -349,7 +353,7 @@ bsd.alert('A message to display')
                         <p>
 
                         </p>
-                        <pre class="card"><code class="javascript">/* 
+                        <pre class="card"><code class="javascript language-javascript">/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -366,7 +370,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Default options :</strong>
                         </p>
-                        <pre class="card"><code class="javascript">bsd.defaults.confirm = {
+                        <pre class="card"><code class="javascript language-javascript">bsd.defaults.confirm = {
     // Callback : function
     callback: function (confirmed) {
         return true;
@@ -391,7 +395,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Default template :</strong>
                         </p>
-                        <pre class="card"><code class="html">&lt;div class="modal fade bsd-dialog bsd-confirm" tabindex="-1" role="dialog" aria-hidden="true"&gt;
+                        <pre class="card"><code class="html language-html">&lt;div class="modal fade bsd-dialog bsd-confirm" tabindex="-1" role="dialog" aria-hidden="true"&gt;
     &lt;div class="modal-dialog" role="document"&gt;
         &lt;div class="modal-content"&gt;
             &lt;div class="modal-body"&gt;
@@ -408,7 +412,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Events :</strong>
                         </p>
-                        <pre class="card"><code class="javascript">/* 
+                        <pre class="card"><code class="javascript language-javascript">/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -425,7 +429,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Default options :</strong>
                         </p>
-                        <pre class="card"><code class="javascript">bsd.defaults.prompt = {
+                        <pre class="card"><code class="javascript language-javascript">bsd.defaults.prompt = {
     // Generate the prompt field : string | jQuery object | function (must return a jQuery object).
     // The prompt field MUST have the class "bsd-field".
     // If a function is provided, its return value MUST be compatible with jQuery "appendTo" function.
@@ -463,7 +467,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Default template :</strong>
                         </p>
-                        <pre class="card"><code class="html">&lt;div class="modal fade bsd-dialog bsd-prompt" tabindex="-1" role="dialog" aria-hidden="true"&gt;
+                        <pre class="card"><code class="html language-html">&lt;div class="modal fade bsd-dialog bsd-prompt" tabindex="-1" role="dialog" aria-hidden="true"&gt;
     &lt;div class="modal-dialog" role="document"&gt;
         &lt;div class="modal-content"&gt;
             &lt;div class="modal-body"&gt;
@@ -481,7 +485,7 @@ bsd.alert('A message to display')
                         <p>
                             <strong>Events :</strong>
                         </p>
-                        <pre class="card"><code class="javascript">/* 
+                        <pre class="card"><code class="javascript language-javascript">/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -501,10 +505,10 @@ bsd.alert('A message to display')
 
                         <p>
                             Here is an example :
-                            <button id="mydialog-demo" class="btn btn-sm btn-primary">Try it!</button>
+                            <off><button id="mydialog-demo" class="btn btn-sm btn-primary">Try it!</button></off>
                         </p>
 
-                        <pre class="card"><code class="jvascript">// The dialog options.
+                        <pre class="card"><code class="jvascript language-jvascript">// The dialog options.
 // Remember that they inherit from bsd.defaults.dialog
 
 bsd.defaults.mydialog = {

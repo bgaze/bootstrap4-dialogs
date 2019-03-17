@@ -8,6 +8,7 @@ const replace = require('gulp-replace');
 const prettyHtml = require('gulp-pretty-html');
 const through = require('through2');
 const chalk = require('chalk');
+const turndownService = require('turndown');
 
 // Declare populate engine.
 var populate = function (transforms) {
@@ -75,13 +76,37 @@ var populate = function (transforms) {
     });
 };
 
+// Declare turndown engine.
+var turndown = function (options, customize) {
+    return through.obj(function (input, encoding, callback) {
+        var ts;
+
+        if (typeof options === 'function') {
+            ts = options();
+        } else {
+            ts = new turndownService(options);
+        }
+
+        if (typeof customize === 'function') {
+            customize(ts);
+        }
+
+        let output = input.clone();
+
+        var content = ts.turndown(String(input.contents));
+        output.contents = new Buffer(content.trim());
+
+        callback(null, output);
+    });
+};
+
 // Compile lib.
 function lib() {
     return  gulp.src('src/bootstrap4-dialogs.js')
             .pipe(populate({
                 html: function (content) {
                     return JSON.stringify(content.replace(/>\s+/g, '>').trim());
-                } 
+                }
             }))
             .pipe(beautify.js({indent_size: 4}))
             .pipe(gulp.dest('dist'))
@@ -91,7 +116,7 @@ function lib() {
 }
 
 // Compile demo.
-function demo() {
+function doc() {
     return gulp.src('src/demo.html')
             .pipe(populate(function (content, escaped, filename) {
                 if (escaped) {
@@ -110,19 +135,24 @@ function demo() {
                 wrap_line_length: 0,
                 extra_liners: []
             }))
-            .pipe(gulp.dest('dist'));
-}
-
-// Compile readme.
-function readme() {
-    return gulp.src('src/README.md')
-            .pipe(populate())
+            .pipe(gulp.dest('dist'))
+            .pipe(turndown({
+                headingStyle: 'atx',
+                codeBlockStyle: 'fenced'
+            }, function (ts) {
+                ts.remove('title').remove('style').remove('script').remove('header').remove('off');
+            }))
+            .pipe(rename('README.md'))
             .pipe(gulp.dest('.'));
 }
 
 // Declare tasks.
 
-gulp.task('dist', gulp.series(lib, demo, readme));
+gulp.task('lib', gulp.series(lib));
+
+gulp.task('doc', gulp.series(doc));
+
+gulp.task('dist', gulp.series(lib, doc));
 
 gulp.task('watch', function () {
     gulp.watch('src/**/*', gulp.series('dist'));
