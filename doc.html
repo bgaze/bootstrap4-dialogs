@@ -40,6 +40,10 @@
             button {
                 outline: 0 !important;
             }
+
+            on {
+                display: none !important;
+            }
         </style>
     </head>
     <body data-spy="scroll" data-target="#main-menu" data-offset="30">
@@ -86,36 +90,20 @@
         </header>
 
         <div class="container">
-            <section id="quick-start">
+            <section>
                 <div class="row">
                     <div class="col">
-                        <h1 style="display: none;">Bootstrap 4 dialogs</h1>
+                        <on>
+                            <h1 style="display: none;">Bootstrap 4 dialogs</h1>
 
-                        <h2>Quick start</h2>
-
-                        <blockquote style="display: none;">
-                            Doc and demos here : <a href="https://www.bgaze.fr/bootstrap4-dialogs">https://www.bgaze.fr/bootstrap4-dialogs</a>
-                        </blockquote>
-
-                        <p>BSD requires jQuery v1.9.1+, Bootstrap 4 modal component, and Bootstrap's CSS.</p>
-
-                        <p>Several quick start options are available:</p>
-
-                        <ul>
-                            <li>Download the latest release: <a href="https://github.com/bgaze/bootstrap4-dialogs/releases">https://github.com/bgaze/bootstrap4-dialogs/releases</a></li>
-                            <li>Clone the repo: <code>git clone https://github.com/bgaze/bootstrap4-dialogs.git</code></li>
-                            <li>Install with npm: <code>npm i bgaze-bootstrap4-dialogs</code></li>
-                            <li>Install with yarn: <code>yarn add bgaze-bootstrap4-dialogs</code></li>
-                            <li>Install with Composer: <code>composer require bgaze/bootstrap4-dialogs</code></li>
-                            <li>Install via CDN: <code>https://cdn.jsdelivr.net/gh/bgaze/bootstrap4-dialogs@1/dist/bootstrap4-dialogs.min.js</code></li>
-                        </ul>
-
-                        <p>
-                            Just make sure to include required dependencies into your app, then the library script <code>bootstrap4-dialogs.min.js</code>.<br/>
-                            That's it! You can use the globally declared <code>bsd</code> object :
-                        </p>
+                            <blockquote style="display: none;">
+                                Doc and demos here : <a href="https://www.bgaze.fr/bootstrap4-dialogs">https://www.bgaze.fr/bootstrap4-dialogs</a>
+                            </blockquote>
+                        </on>
 
                         <off>
+                            <h2>Demo</h2>
+
                             <p>
                                 <button class="btn btn-primary" id="demo1">Alert</button>
                                 <button class="btn btn-primary" id="demo2">Confirm</button>
@@ -130,18 +118,17 @@
                                     Show code
                                 </a>
                             </p>
-                        </off>
 
-                        <div class="collapse" id="demo-collapse">
-                            <p><strong>HTML</strong></p>
-                            <pre class="card"><code class="html language-html">&lt;button class="btn btn-primary" id="demo1"&gt;Alert&lt;/button&gt;
+                            <div class="collapse" id="demo-collapse">
+                                <p><strong>HTML</strong></p>
+                                <pre class="card"><code class="html language-html">&lt;button class="btn btn-primary" id="demo1"&gt;Alert&lt;/button&gt;
 &lt;button class="btn btn-primary" id="demo2"&gt;Confirm&lt;/button&gt;
 &lt;button class="btn btn-primary" id="demo3"&gt;Prompt&lt;/button&gt;
 &lt;button class="btn btn-primary" id="demo4"&gt;Multiline prompt&lt;/button&gt;
 &lt;button class="btn btn-primary" id="demo5"&gt;Customized dialog&lt;/button&gt;</code></pre>
 
-                            <p><strong>Javascript</strong></p>
-                            <pre class="card"><code class="javascript language-javascript">$('#demo1').click(function () {
+                                <p><strong>Javascript</strong></p>
+                                <pre class="card"><code class="javascript language-javascript">$('#demo1').click(function () {
     bsd.alert('Lorem ipsum dolor sit amet');
 });
 
@@ -178,7 +165,61 @@ $('#demo5').click(function () {
         confirmClass: "btn-success btn-sm"
     });
 });</code></pre>
-                        </div>
+                            </div>
+                        </off>
+                    </div>
+                </div>
+            </section>
+
+            <section id="quick-start">
+                <div class="row">
+                    <div class="col">
+                        <h2>Quick start</h2>
+
+                        <p>BSD requires jQuery v1.9.1+, Bootstrap 4 modal component, and Bootstrap's CSS.</p>
+
+                        <p>Several quick start options are available:</p>
+
+                        <ul>
+                            <li>Download the latest release: <a href="https://github.com/bgaze/bootstrap4-dialogs/releases">https://github.com/bgaze/bootstrap4-dialogs/releases</a></li>
+                            <li>Clone the repo: <code>git clone https://github.com/bgaze/bootstrap4-dialogs.git</code></li>
+                            <li>Install with npm: <code>npm i bgaze-bootstrap4-dialogs</code></li>
+                            <li>Install with yarn: <code>yarn add bgaze-bootstrap4-dialogs</code></li>
+                            <li>Install with Composer: <code>composer require bgaze/bootstrap4-dialogs</code></li>
+                            <li>Install via CDN: <code>https://cdn.jsdelivr.net/gh/bgaze/bootstrap4-dialogs@1/dist/bootstrap4-dialogs.min.js</code></li>
+                        </ul>
+
+                        <p>
+                            Just make sure to include required dependencies into your app, then the library script <code>bootstrap4-dialogs.min.js</code>.<br/>
+                            That's it! You can use the globally declared <code>bsd</code> object.
+                        </p>
+
+                        <pre class="card"><code class="javascript language-javascript">// Alert.
+bsd.alert('Lorem ipsum dolor sit amet');
+
+// Confirm.
+bsd.confirm('Lorem ipsum dolor sit amet', function (confirmed, event) {
+    if (confirmed) {
+        // ...
+    }
+    return true;
+});
+
+// Prompt.
+bsd.prompt('Lorem ipsum dolor sit amet', function (value, event) {
+    if (value === null) {
+        return true;
+    }
+
+    if (value.trim() === '') {
+        bsd.alert('You must provide a value!');
+        return false;
+    }
+
+    // ...
+
+    return true;
+});</code></pre>
                     </div>
                 </div>
             </section>

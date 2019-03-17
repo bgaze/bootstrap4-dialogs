@@ -1,8 +1,8 @@
 # Bootstrap 4 dialogs
 
-## Quick start
-
 > Doc and demos here : [https://www.bgaze.fr/bootstrap4-dialogs](https://www.bgaze.fr/bootstrap4-dialogs)
+
+## Quick start
 
 BSD requires jQuery v1.9.1+, Bootstrap 4 modal component, and Bootstrap's CSS.
 
@@ -16,57 +16,34 @@ Several quick start options are available:
 *   Install via CDN: `https://cdn.jsdelivr.net/gh/bgaze/bootstrap4-dialogs@1/dist/bootstrap4-dialogs.min.js`
 
 Just make sure to include required dependencies into your app, then the library script `bootstrap4-dialogs.min.js`.  
-That's it! You can use the globally declared `bsd` object :
-
-**HTML**
-
-```html
-<button class="btn btn-primary" id="demo1">Alert</button>
-<button class="btn btn-primary" id="demo2">Confirm</button>
-<button class="btn btn-primary" id="demo3">Prompt</button>
-<button class="btn btn-primary" id="demo4">Multiline prompt</button>
-<button class="btn btn-primary" id="demo5">Customized dialog</button>
-```
-
-**Javascript**
+That's it! You can use the globally declared `bsd` object.
 
 ```javascript
-$('#demo1').click(function () {
-    bsd.alert('Lorem ipsum dolor sit amet');
+// Alert.
+bsd.alert('Lorem ipsum dolor sit amet');
+
+// Confirm.
+bsd.confirm('Lorem ipsum dolor sit amet', function (confirmed, event) {
+    if (confirmed) {
+        // ...
+    }
+    return true;
 });
 
-$('#demo2').click(function () {
-    bsd.confirm('Lorem ipsum dolor sit amet');
-});
+// Prompt.
+bsd.prompt('Lorem ipsum dolor sit amet', function (value, event) {
+    if (value === null) {
+        return true;
+    }
 
-$('#demo3').click(function () {
-    bsd.prompt('Lorem ipsum dolor sit amet');
-});
+    if (value.trim() === '') {
+        bsd.alert('You must provide a value!');
+        return false;
+    }
 
-$('#demo4').click(function () {
-    bsd.prompt('Lorem ipsum dolor sit amet', {multiline: true});
-});
+    // ...
 
-$('#demo5').click(function () {
-    bsd.prompt('Most of this dialog options are customized.', {
-        field: function () {
-            var $select = $('<select>').addClass('form-control bsd-field');
-            for (var i = 1; i < 4; i++) {
-                $('<option>').text('Option ' + i).appendTo($select);
-            }
-            return $select;
-        },
-        id: 'my-customized-modal',
-        size: 'modal-sm',
-        backdrop: 'static',
-        keyboard: false,
-        vcenter: true,
-        hcenter: true,
-        cancelText: "No",
-        cancelClass: "btn-danger btn-sm",
-        confirmText: "Yes",
-        confirmClass: "btn-success btn-sm"
-    });
+    return true;
 });
 ```
 
