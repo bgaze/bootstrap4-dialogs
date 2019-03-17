@@ -117,7 +117,7 @@ function lib() {
 
 // Compile demo.
 function doc() {
-    return gulp.src('src/demo.html')
+    return gulp.src('src/doc.html')
             .pipe(populate(function (content, escaped, filename) {
                 if (escaped) {
                     return content.replace(/>/g, '&gt;').replace(/</g, '&lt;').trim();
@@ -135,7 +135,7 @@ function doc() {
                 wrap_line_length: 0,
                 extra_liners: []
             }))
-            .pipe(gulp.dest('dist'))
+            .pipe(gulp.dest('.'))
             .pipe(turndown({
                 headingStyle: 'atx',
                 codeBlockStyle: 'fenced'
