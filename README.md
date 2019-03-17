@@ -76,6 +76,9 @@ This section applies to all provided dialog functions (**bsd.alert**, **bsd.conf
 When called, a customized Boostrap 4 modal will be dynamically built and inserted into the document.  
 Unless explicitly specified through options, the modal is automatically shown when created, and destroyed then removed from the DOM when closed.
 
+There is no stylesheet provided with BSD, as it rely on Bootstrap styles.  
+To ease dialogs theming, two CSS classes are automatically added to each dialog : `bsd-dialog` and `bsd-[dialogName]` (for instance `bsd-alert` for alert dialogs).
+
 **Arguments**
 
 Dialog functions accept two arguments:
@@ -261,7 +264,7 @@ bsd.defaults.alert = {
 If you need to change this template, just make sure to keep required `bsd-*` classes.
 
 ```html
-<div class="modal fade bsd-dialog bsd-alert" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -343,7 +346,7 @@ bsd.defaults.confirm = {
 If you need to change this template, just make sure to keep required `bsd-*` classes.
 
 ```html
-<div class="modal fade bsd-dialog bsd-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -455,7 +458,7 @@ bsd.defaults.prompt = {
 If you need to change this template, just make sure to keep required `bsd-*` classes.
 
 ```html
-<div class="modal fade bsd-dialog bsd-prompt" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">

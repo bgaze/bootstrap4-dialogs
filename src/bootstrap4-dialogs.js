@@ -28,6 +28,9 @@
             // Create dialog element.
             var $dialog = $(settings.template).appendTo("body");
 
+            // Add bsd classes to the dialog.
+            $dialog.addClass('bsd-dialog').addClass('bsd-' + type);
+
             // Manage dialog id.
             if (settings.id) {
                 $dialog.attr('id', settings.id);

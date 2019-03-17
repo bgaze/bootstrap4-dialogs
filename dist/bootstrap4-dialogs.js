@@ -30,6 +30,9 @@
             // Create dialog element.
             var $dialog = $(settings.template).appendTo("body");
 
+            // Add bsd classes to the dialog.
+            $dialog.addClass('bsd-dialog').addClass('bsd-' + type);
+
             // Manage dialog id.
             if (settings.id) {
                 $dialog.attr('id', settings.id);
@@ -124,7 +127,7 @@
         callback: null,
 
         // The template used to generate dialog.
-        template: "<div class=\"modal fade bsd-dialog bsd-alert\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\"><div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-body\"><p class=\"lead bsd-message\"></p><div class=\"d-flex justify-content-center mt-3\"><button type=\"button\" class=\"btn bsd-close\" data-dismiss=\"modal\"></button></div></div></div></div></div>",
+        template: "<div class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\"><div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-body\"><p class=\"lead bsd-message\"></p><div class=\"d-flex justify-content-center mt-3\"><button type=\"button\" class=\"btn bsd-close\" data-dismiss=\"modal\"></button></div></div></div></div></div>",
 
         // The close button text.
         closeText: "Validate",
@@ -164,7 +167,7 @@
         },
 
         // The template used to generate dialog.
-        template: "<div class=\"modal fade bsd-dialog bsd-confirm\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\"><div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-body\"><p class=\"lead bsd-message\"></p><div class=\"d-flex justify-content-between mt-3\"><button class=\"btn bsd-cancel\" data-dismiss=\"modal\"></button><button class=\"btn bsd-confirm\"></button></div></div></div></div></div>",
+        template: "<div class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\"><div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-body\"><p class=\"lead bsd-message\"></p><div class=\"d-flex justify-content-between mt-3\"><button class=\"btn bsd-cancel\" data-dismiss=\"modal\"></button><button class=\"btn bsd-confirm\"></button></div></div></div></div></div>",
 
         // The cancel button text.
         cancelText: "Cancel",
@@ -237,7 +240,7 @@
         },
 
         // The template used to generate dialog.
-        template: "<div class=\"modal fade bsd-dialog bsd-prompt\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\"><div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-body\"><p class=\"lead bsd-message\"></p><div class=\"bsd-field-wrapper\"></div><div class=\"d-flex justify-content-between mt-3\"><button class=\"btn bsd-cancel\" data-dismiss=\"modal\"></button><button class=\"btn bsd-confirm\"></button></div></div></div></div></div>",
+        template: "<div class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\"><div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-body\"><p class=\"lead bsd-message\"></p><div class=\"bsd-field-wrapper\"></div><div class=\"d-flex justify-content-between mt-3\"><button class=\"btn bsd-cancel\" data-dismiss=\"modal\"></button><button class=\"btn bsd-confirm\"></button></div></div></div></div></div>",
 
         // Is the prompt input multiline:  true | [false]
         multiline: false,
