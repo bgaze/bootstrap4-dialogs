@@ -190,7 +190,21 @@ $('#demo5').click(function () {
                         </ul>
 
                         <p>
-                            Just make sure to include required dependencies into your app, then the library script <code>bootstrap4-dialogs.min.js</code>.<br/>
+                            Just make sure to include required dependencies into your app, then include the library:
+                        </p>
+
+                        <ul>
+                            <li>
+                                If installed as a module, import it: <br/>
+                                <code>const bsd = require("bgaze-bootstrap4-dialogs");</code>
+                            </li>
+                            <li>
+                                Otherwise include the script into your page: <br/>
+                                <code>&lt;script src="path/to/bootstrap4-dialogs.min.js"&gt;&lt;/script&gt;</code>
+                            </li>
+                        </ul>
+
+                        <p>
                             That's it! You can use the globally declared <code>bsd</code> object.
                         </p>
 

@@ -15,7 +15,13 @@ Several quick start options are available:
 *   Install with Composer: `composer require bgaze/bootstrap4-dialogs`
 *   Install via CDN: `https://cdn.jsdelivr.net/gh/bgaze/bootstrap4-dialogs@1/dist/bootstrap4-dialogs.min.js`
 
-Just make sure to include required dependencies into your app, then the library script `bootstrap4-dialogs.min.js`.  
+Just make sure to include required dependencies into your app, then include the library:
+
+*   If installed as a module, import it:  
+    `const bsd = require("bgaze-bootstrap4-dialogs");`
+*   Otherwise include the script into your page:  
+    `<script src="path/to/bootstrap4-dialogs.min.js"></script>`
+
 That's it! You can use the globally declared `bsd` object.
 
 ```javascript
