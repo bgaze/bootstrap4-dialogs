@@ -10,7 +10,7 @@ Several quick start options are available:
 *   Clone the repo: `git clone https://github.com/bgaze/bootstrap4-dialogs.git`
 *   Install with npm: `npm install TODO`
 *   Install with yarn: `yarn add TODO`
-*   Install with Composer: `composer TODO`
+*   Install with Composer: `composer require bgaze/bootstrap4-dialogs`
 *   Install with Bower: `bower install TODO`
 *   Install via CDN: `TODO`
 
