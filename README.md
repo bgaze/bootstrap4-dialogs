@@ -238,7 +238,7 @@ bsd.alert('Lorem ipsum dolor sit amet', {
 
 **Default options :**
 
-You can customize these options as descriped in the options section.
+You can customize these options as described in the options section.
 
 ```javascript
 bsd.defaults.alert = {
@@ -312,7 +312,7 @@ bsd.confirm('Lorem ipsum dolor sit amet', {
 
 **Default options :**
 
-You can customize these options as descriped in the options section.
+You can customize these options as described in the options section.
 
 ```javascript
 bsd.defaults.confirm = {
@@ -411,7 +411,7 @@ bsd.prompt('Lorem ipsum dolor sit amet', {
 
 **Default options :**
 
-You can customize these options as descriped in the options section.
+You can customize these options as described in the options section.
 
 ```javascript
 bsd.defaults.prompt = {
