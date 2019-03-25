@@ -545,7 +545,7 @@ You can easily generate the dialog thanks to the `bsd.dialog` function wich :
 It requires three arguments :
 
 1.  The dialog defaults key name into `bsd.defaults`.
-2.  The option set provided by the user.
+2.  The options set provided by the user.
 3.  A function to customize the dialog. When called, it will receive as arguments the dialog jQuery object and the merged settings.
 
 ```javascript
@@ -581,7 +581,7 @@ bsd.mydialog = function (title, subtitle, options) {
                 }
             });
 
-            // Maybe button click.
+            // Yes button click.
             $('.bsd-yes', $dialog).click(function (e) {
                 if (settings.callback('yes', e) !== false) {
                     $dialog.modal('hide');

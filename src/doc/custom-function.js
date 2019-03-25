@@ -30,7 +30,7 @@ bsd.mydialog = function (title, subtitle, options) {
                 }
             });
 
-            // Maybe button click.
+            // Yes button click.
             $('.bsd-yes', $dialog).click(function (e) {
                 if (settings.callback('yes', e) !== false) {
                     $dialog.modal('hide');
