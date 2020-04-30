@@ -291,7 +291,7 @@
 
                 // Confirm button click.
                 $('.bsd-confirm', $dialog).click(function(e) {
-                    if (settings.callback($('bsd-field', $dialog).val(), e) !== false) {
+                    if (settings.callback($('.bsd-field', $dialog).val(), e) !== false) {
                         $dialog.modal('hide');
                     }
                 });
