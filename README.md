@@ -473,7 +473,7 @@ If you need to change this template, just make sure to keep required `bsd-*` cla
 If you need to create custom dialogs, you can easily extend BSD.  
 Please find below a detailed example.
 
-**1/ Define your dialog options and defaults.**
+**Define your dialog options and defaults.**
 
 Simply append them to `bsd.defaults`. The key MUST be your dialog name.  
 Remember that your dialog options inherit from `bsd.defaults.dialog`, so you can override them.
@@ -529,7 +529,7 @@ bsd.defaults.mydialog = {
 };
 ```
 
-**2/ Create the dialog function.**
+**Create the dialog function.**
 
 You can easily generate the dialog thanks to the `bsd.dialog` function wich :
 
@@ -592,7 +592,7 @@ bsd.mydialog = function (title, subtitle, options) {
 };
 ```
 
-**3/ Usage:**
+**Usage:**
 
 Simply use your function like this:
 
