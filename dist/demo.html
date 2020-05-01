@@ -93,11 +93,6 @@
             (function ($) {
                 // Default options.
                 bsd.defaults.mydialog = {
-                    // Callback : function
-                    callback: function () {
-                        return true;
-                    },
-
                     // The template used to generate dialog.
                     template: `<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -111,32 +106,32 @@
                                             <div class="modal-body">
                                                 <p class="bsd-subtitle"></p>
                                             </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn bsd-no" data-dismiss="modal"></button>
-                                                <button type="button" class="btn bsd-maybe"></button>
-                                                <button type="button" class="btn bsd-yes"></button>
+                                            <div class="modal-footer">
+                                                <div class="bsd-controls d-flex flex-grow-1 align-items-center">
+                                                    <button type="button" class="btn bsd-no mr-1" data-dismiss="modal"></button>
+                                                    <button type="button" class="btn bsd-maybe mx-1"></button>
+                                                    <button type="button" class="btn bsd-yes ml-1"></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>`,
 
-                    // Center vertically the dialog in the window: [true] | false
-                    vcenter: true,
-
-                    // Center horizontally the dialog text: [true] | false
-                    hcenter: true,
-
                     // No button.
-                    noText: "No",
-                    noClass: "btn-danger",
+                    noText: 'No',
+                    noClass: 'btn-danger',
 
                     // Maybe button.
-                    maybeText: "Maybe",
-                    maybeClass: "btn-primary",
+                    maybeText: 'Maybe',
+                    maybeClass: 'btn-primary',
 
                     // Yes button.
-                    yesText: "Yes",
-                    yesClass: "btn-success"
+                    yesText: 'Yes',
+                    yesClass: 'btn-success',
+
+                    // DEFAULTS OVERRIDE EXAMPLE
+                    // Center horizontally the dialog text: [around] | center | start | end | between
+                    controlsAlignment: 'around'
                 };
 
                 // Dialog function.
@@ -147,27 +142,15 @@
                         $('.bsd-subtitle', $dialog).html(subtitle || '');
 
                         // Customize buttons.
-                        $('.bsd-no', $dialog)
-                            .addClass(settings.noClass)
-                            .text(settings.noText)
-                            .click(function () {
-                                $dialog.trigger('dismiss.bsd');
-                            })
-                        ;
-                        $('.bsd-maybe', $dialog)
-                            .addClass(settings.maybeClass)
-                            .text(settings.maybeText)
-                            .click(function () {
-                                $dialog.trigger('maybe.bsd');
-                            })
-                        ;
-                        $('.bsd-yes', $dialog)
-                            .addClass(settings.yesClass)
-                            .text(settings.yesText)
-                            .click(function () {
-                                $dialog.trigger('yes.bsd');
-                            })
-                        ;
+                        $('.bsd-no', $dialog).addClass(settings.noClass).text(settings.noText).click(function () {
+                            $dialog.trigger('dismiss.bsd');
+                        });
+                        $('.bsd-maybe', $dialog).addClass(settings.maybeClass).text(settings.maybeText).click(function () {
+                            $dialog.trigger('maybe.bsd');
+                        });
+                        $('.bsd-yes', $dialog).addClass(settings.yesClass).text(settings.yesText).click(function () {
+                            $dialog.trigger('yes.bsd');
+                        });
 
                         // Manage dialog callback.
                         if (typeof settings.callback === 'function') {
@@ -268,6 +251,7 @@
                         keyboard: false,
                         vcenter: false,
                         hcenter: false,
+                        controlsAlignment: 'around',
                         cancelText: "No",
                         cancelClass: "btn-danger btn-sm",
                         confirmText: "Yes",

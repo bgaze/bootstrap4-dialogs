@@ -30,7 +30,10 @@ export default new class {
                 vcenter: true,
 
                 // Center horizontally the dialog text: true | [false]
-                hcenter: true
+                hcenter: true,
+
+                // Center horizontally the dialog text: [between] | center | start | end | around
+                controlsAlignment: 'between'
             },
             alert: {
                 // The template used to generate dialog.
@@ -39,7 +42,7 @@ export default new class {
                                     <div class="modal-content">
                                         <div class="modal-body">
                                             <p class="lead bsd-message"></p>
-                                            <div class="d-flex justify-content-center mt-3">
+                                            <div class="bsd-controls d-flex align-items-center mt-3">
                                                 <button type="button" class="btn bsd-close" data-dismiss="modal"></button>
                                             </div>
                                         </div>
@@ -48,8 +51,11 @@ export default new class {
                             </div>`,
 
                 // The close button options.
-                closeText: "Validate",
-                closeClass: "btn-primary"
+                closeText: 'Validate',
+                closeClass: 'btn-primary',
+
+                // Center horizontally the dialog text: [around] | center | start | end | between
+                controlsAlignment: 'around'
             },
             confirm: {
                 // The template used to generate dialog.
@@ -58,9 +64,9 @@ export default new class {
                                     <div class="modal-content">
                                         <div class="modal-body">
                                             <p class="lead bsd-message"></p>
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <button class="btn bsd-cancel" data-dismiss="modal"></button>
-                                                <button class="btn bsd-confirm"></button>
+                                            <div class="bsd-controls d-flex align-items-center mt-3">
+                                                <button class="btn bsd-cancel mr-1" data-dismiss="modal"></button>
+                                                <button class="btn bsd-confirm ml-1"></button>
                                             </div>
                                         </div>
                                     </div>
@@ -68,12 +74,12 @@ export default new class {
                             </div>`,
 
                 // The cancel button options.
-                cancelText: "Cancel",
-                cancelClass: "btn-light",
+                cancelText: 'Cancel',
+                cancelClass: 'btn-light',
 
                 // The confirm button options.
-                confirmText: "Validate",
-                confirmClass: "btn-primary"
+                confirmText: 'Validate',
+                confirmClass: 'btn-primary'
             },
             prompt: {
                 // Generate the prompt field : string | jQuery object | function (must return a jQuery object).
@@ -98,9 +104,9 @@ export default new class {
                                         <div class="modal-body">
                                             <p class="lead bsd-message"></p>
                                             <div class="bsd-field-wrapper"></div>
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <button class="btn bsd-cancel" data-dismiss="modal"></button>
-                                                <button class="btn bsd-confirm"></button>
+                                            <div class="bsd-controls d-flex align-items-center mt-3">
+                                                <button class="btn bsd-cancel mr-1" data-dismiss="modal"></button>
+                                                <button class="btn bsd-confirm ml-1"></button>
                                             </div>
                                         </div>
                                     </div>
@@ -111,12 +117,12 @@ export default new class {
                 multiline: false,
 
                 // The cancel button options.
-                cancelText: "Cancel",
-                cancelClass: "btn-light",
+                cancelText: 'Cancel',
+                cancelClass: 'btn-light',
 
                 // The confirm button options.
-                confirmText: "Validate",
-                confirmClass: "btn-primary"
+                confirmText: 'Validate',
+                confirmClass: 'btn-primary'
             }
         };
     }
@@ -129,7 +135,7 @@ export default new class {
         let settings = $.extend({}, this.defaults.dialog, this.defaults[type] || {}, options || {});
 
         // Create dialog element.
-        let $dialog = $(settings.template).appendTo("body");
+        let $dialog = $(settings.template).appendTo('body');
 
         // Add bsd classes to the dialog.
         $dialog.addClass('bsd-dialog').addClass('bsd-' + type);
@@ -141,18 +147,24 @@ export default new class {
 
         // Manage dialog size.
         if (settings.size) {
-            $('.modal-dialog').addClass(settings.size);
+            $('.modal-dialog', $dialog).addClass(settings.size);
         }
 
         // Manage vertically centered modal.
         if (settings.vcenter) {
-            $('.modal-dialog').addClass('modal-dialog-centered');
+            $('.modal-dialog', $dialog).addClass('modal-dialog-centered');
         }
 
         // Manage vertically centered modal.
         if (settings.hcenter) {
-            $('.modal-dialog').addClass('text-center');
+            $('.modal-dialog', $dialog).addClass('text-center');
         }
+
+        // Manage controls alignment.
+        if (!['start', 'end', 'between', 'around', 'center'].includes(settings.controlsAlignment)) {
+            settings.controlsAlignment = 'between';
+        }
+        $('.bsd-controls', $dialog).addClass(`justify-content-${settings.controlsAlignment}`);
 
         // Init Bootstrap modal.
         $dialog.modal({
@@ -213,13 +225,9 @@ export default new class {
             }
 
             // Customize close button.
-            $('.bsd-close', $dialog)
-                .addClass(settings.closeClass)
-                .text(settings.closeText)
-                .click(function () {
-                    $dialog.trigger('dismiss.bsd');
-                })
-            ;
+            $('.bsd-close', $dialog).addClass(settings.closeClass).text(settings.closeText).click(function () {
+                $dialog.trigger('dismiss.bsd');
+            });
 
             // Manage dialog events.
             if (typeof settings.callback === 'function') {
@@ -238,20 +246,12 @@ export default new class {
             }
 
             // Customize buttons.
-            $('.bsd-cancel', $dialog)
-                .addClass(settings.cancelClass)
-                .text(settings.cancelText)
-                .click(function () {
-                    $dialog.trigger('dismiss.bsd');
-                })
-            ;
-            $('.bsd-confirm', $dialog)
-                .addClass(settings.confirmClass)
-                .text(settings.confirmText)
-                .click(function () {
-                    $dialog.trigger('confirm.bsd');
-                })
-            ;
+            $('.bsd-cancel', $dialog).addClass(settings.cancelClass).text(settings.cancelText).click(function () {
+                $dialog.trigger('dismiss.bsd');
+            });
+            $('.bsd-confirm', $dialog).addClass(settings.confirmClass).text(settings.confirmText).click(function () {
+                $dialog.trigger('confirm.bsd');
+            });
 
             // Manage dialog events.
             if (typeof settings.callback === 'function') {
@@ -283,20 +283,12 @@ export default new class {
             $('.bsd-field-wrapper', $dialog).append(input);
 
             // Customize buttons.
-            $('.bsd-cancel', $dialog)
-                .addClass(settings.cancelClass)
-                .text(settings.cancelText)
-                .click(function () {
-                    $dialog.trigger('dismiss.bsd');
-                })
-            ;
-            $('.bsd-confirm', $dialog)
-                .addClass(settings.confirmClass)
-                .text(settings.confirmText)
-                .click(function () {
-                    $dialog.trigger('confirm.bsd');
-                })
-            ;
+            $('.bsd-cancel', $dialog).addClass(settings.cancelClass).text(settings.cancelText).click(function () {
+                $dialog.trigger('dismiss.bsd');
+            });
+            $('.bsd-confirm', $dialog).addClass(settings.confirmClass).text(settings.confirmText).click(function () {
+                $dialog.trigger('confirm.bsd');
+            });
 
             // Manage dialog events.
             if (typeof settings.callback === 'function') {
