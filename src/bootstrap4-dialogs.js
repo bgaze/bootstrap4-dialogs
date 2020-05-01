@@ -26,13 +26,13 @@ export default new class {
                 // Closes the dialog when escape key is pressed: [true] |false
                 keyboard: true,
 
-                // Center vertically the dialog in the window: true | [false]
+                // Center vertically the dialog in the window: [true] | false
                 vcenter: true,
 
-                // Center horizontally the dialog text: true | [false]
+                // Center horizontally the dialog text: [true] |false
                 hcenter: true,
 
-                // Center horizontally the dialog text: [between] | center | start | end | around
+                // Manage controls alignment: ['between'] | 'center' | 'start' | 'end' | 'around'
                 controlsAlignment: 'between'
             },
             alert: {
@@ -54,7 +54,7 @@ export default new class {
                 closeText: 'Validate',
                 closeClass: 'btn-primary',
 
-                // Center horizontally the dialog text: [around] | center | start | end | between
+                // Manage controls alignment: ['around'] | 'center' | 'start' | 'end' | 'between'
                 controlsAlignment: 'around'
             },
             confirm: {
@@ -82,8 +82,8 @@ export default new class {
                 confirmClass: 'btn-primary'
             },
             prompt: {
-                // Generate the prompt field : string | jQuery object | function (must return a jQuery object).
-                // If a function is provided, its return value MUST be compatible with jQuery "appendTo" function.
+                // Generate the prompt field : string | jQuery object | function
+                // If a function is provided, it MUST return a value compatible with jQuery "appendTo" function.
                 field: function (multiline) {
                     if (multiline) {
                         return '<textarea class="form-control bsd-field"></textarea>';

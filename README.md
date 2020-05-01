@@ -1,8 +1,11 @@
 # Bootstrap 4 dialogs
 
-> Doc and demos here : [https://www.bgaze.fr/bootstrap4-dialogs](https://www.bgaze.fr/bootstrap4-dialogs)
+BSD is a tiny *(< 10ko)* and flexible collection of dialog popups based on Bootstrap 4 modals.  
+Custom dialogs can be easily defined, in addition to built-in ones (alert, confirm and prompt).
 
 **Table of content :**
+
+> Doc and demos at [https://www.bgaze.fr/bootstrap4-dialogs](https://www.bgaze.fr/bootstrap4-dialogs)
 
 *   [Quick start](#quick-start)
 *   [Usage](#usage)
@@ -14,7 +17,7 @@
 
 ## Quick start
 
-BSD requires jQuery v1.9.1+, Bootstrap 4 modal component, and Bootstrap's CSS.
+BSD requires jQuery v1.9+ and Bootstrap 4 modal component.
 
 Several quick start options are available:
 
@@ -23,55 +26,45 @@ Several quick start options are available:
 *   Install with npm: `npm i bgaze-bootstrap4-dialogs`
 *   Install with yarn: `yarn add bgaze-bootstrap4-dialogs`
 *   Install with Composer: `composer require bgaze/bootstrap4-dialogs`
-*   Install via CDN: `https://cdn.jsdelivr.net/gh/bgaze/bootstrap4-dialogs@1/dist/bootstrap4-dialogs.min.js`
+*   Install via CDN: `https://cdn.jsdelivr.net/gh/bgaze/bootstrap4-dialogs@2/dist/bootstrap4-dialogs.min.js`
 
 Just make sure to include required dependencies into your app, then include the library:
 
 *   If installed as a module, import it:  
     `const bsd = require("bgaze-bootstrap4-dialogs");`
 *   Otherwise include the script into your page:  
-    `<script src="path/to/bootstrap4-dialogs.min.js"></script>`
+    `<script src="path/to/bootstrap4-dialogs.js"></script>`
 
-That's it! You can use the globally declared `bsd` object.
+That's it! Now you can use the globally declared `bsd` object.
 
 ```javascript
-// Alert.
+// Alert
 bsd.alert('Lorem ipsum dolor sit amet');
 
-// Confirm.
-bsd.confirm('Lorem ipsum dolor sit amet', function (confirmed, event) {
+// Confirm
+bsd.confirm('Lorem ipsum dolor sit amet', function (confirmed) {
     if (confirmed) {
         // ...
     }
-    return true;
 });
 
-// Prompt.
-bsd.prompt('Lorem ipsum dolor sit amet', function (value, event) {
-    if (value === null) {
-        return true;
+// Prompt
+bsd.prompt('Lorem ipsum dolor sit amet', function (value) {
+    if (value !== null) {
+        if (value.trim() === '') {
+            // Prevent dialog closing, as provided value is empty.
+            return false;
+        } 
+
+        console.log(value);
     }
-
-    if (value.trim() === '') {
-        bsd.alert('You must provide a value!');
-        return false;
-    }
-
-    // ...
-
-    return true;
 });
 ```
 
 ## Usage
 
-This section applies to all provided dialog functions (**bsd.alert**, **bsd.confirm**, **bsd.prompt**).
-
-When called, a customized Boostrap 4 modal will be dynamically built and inserted into the document.  
-Unless explicitly specified through options, the modal is automatically shown when created, and destroyed then removed from the DOM when closed.
-
-There is no stylesheet provided with BSD, as it rely on Bootstrap styles.  
-To ease dialogs theming, two CSS classes are automatically added to each dialog : `bsd-dialog` and `bsd-[dialogName]` (for instance `bsd-alert` for alert dialogs).
+When a `bsd` method is called, a customized Boostrap 4 modal will be dynamically built and inserted into the DOM.  
+Unless explicitly specified through options, it is automatically shown when created, and destroyed when closed.
 
 **Arguments**
 
@@ -83,11 +76,11 @@ Dialog functions accept two arguments:
     All available options can be customized / overrided globally, see [options](#options) sections for details.
 
 ```javascript
-// Simple alert.
+// Simple dialog
 
 bsd.confirm('A message to display');
 
-// Direct callback assignement.
+// Simple dialog with direct callback assignment
 
 bsd.confirm('A message to display', function (confirmed) {
     if (confirmed) {
@@ -95,12 +88,12 @@ bsd.confirm('A message to display', function (confirmed) {
     }
 });
 
-// Customized prompt dialog.
+// Customized dialog
 
-bsd.prompt('A message to display', {
-    callback: function (value) {
-        if (value !== null) {
-            console.log(value);
+bsd.confirm('A message to display', {
+    callback: function (confirmed) {
+        if (confirmed) {
+            console.log('Confirmed !');
         }
     },
     size: 'sm',
@@ -111,34 +104,43 @@ bsd.prompt('A message to display', {
 
 **Handling dialogs**
 
-Each dialog function returns it's modal element as a jQuery object, so Bootstrap modal events and method can be directly used.
+Each dialog function returns it's modal element as a jQuery object, so Bootstrap modal methods and event can be directly used, except `show.bs.modal`.
 
 ```javascript
-// With the "show" option activated, the "show.bs.modal" event is fired before returning the modal. 
-// To use that event, you need to manage modal opening manually:
-
-bsd.alert('A message to display', {show: false})
-        .on('show.bs.modal', function (e) {
-            // ...
-        })
-        .modal('show');
-
-// As a shortand, you can directly pass your callback to the "show" option :
-
-bsd.alert('A message to display', {
-    show: function (e) {
-        // ...
-    }
-});
-
-// Methods and other events can be use directly:
-
 bsd.alert('A message to display')
         .on('shown.bs.modal', function (e) {
             // ...
         })
         .modal('handleUpdate');
 ```
+
+The `show.bs.modal` event is fired before returning the modal, so to use it, you'll need to manage modal opening manually:
+
+```javascript
+bsd.alert('A message to display', {show: false})
+        .on('show.bs.modal', function (e) {
+            // ...
+        })
+        .modal('show');
+```
+
+As a shorthand, you can directly pass a function into the `show` option :
+
+```javascript
+bsd.alert('A message to display', {
+    show: function (e) {
+        // ...
+    }
+});
+```
+
+**Theming**
+
+There is no stylesheet provided with BSD, as it only relies on Bootstrap styles.  
+To ease dialogs theming, two CSS classes are automatically added to each dialog :
+ 
++ `bsd-dialog`
++ `bsd-[dialogName]` (for instance `bsd-alert` for alert dialogs).
 
 ## Options
 
@@ -160,7 +162,7 @@ bsd.defaults.dialog.hcenter = true;
 bsd.defaults.dialog.size = 'modal-sm';
 bsd.defaults.prompt.size = null;
 
-// Define default text for alert, confirm and prompt.
+// Define default text for alert, confirm and prompt dialog buttons.
 bsd.defaults.alert.closeText = 'OK';
 bsd.defaults.confirm.cancelText = 'No';
 bsd.defaults.confirm.confirmText = 'Yes';
@@ -172,31 +174,37 @@ Here is the list of available common options:
 
 ```javascript
 bsd.defaults.dialog = {
-    // An value to use as id attribute for the modal: [null] | string
+    // Callback : [null] | function
+    callback: null,
+    
+    // A value to use as id attribute for the modal: [null] | string
     id: null,
-
+    
     // Show the modal element when created : [true] | false | function
-    // If a function is provided, the modal will be shown and the function will be used on show.bs.modal event.
+    // If a function is provided, the modal will be shown and the function will be used on "show.bs.modal" event.
     show: true,
-
+    
     // Delete the modal element on hidden : [true] |false
     destroy: true,
-
+    
     // Dialog size : [null] | 'modal-sm' | 'modal-lg' | 'modal-xl'
     size: null,
-
-    // Include a backdrop element: [true] | false | 'static' 
+    
+    // Include a backdrop element: [true] | false | 'static'
     // With static option, backdrop doesn't close the modal on click.
     backdrop: true,
-
+    
     // Closes the dialog when escape key is pressed: [true] |false
     keyboard: true,
-
-    // Center vertically the dialog in the window: true | [false]
-    vcenter: false,
-
-    // Center horizontally the dialog text: true | [false]
-    hcenter: false
+    
+    // Center vertically the dialog in the window: [true] |false
+    vcenter: true,
+    
+    // Center horizontally the dialog text: [true] |false
+    hcenter: true,
+    
+    // Manage controls alignment: ['between'] | 'center' | 'start' | 'end' | 'around'
+    controlsAlignment: 'between'
 };
 ```
 
@@ -204,289 +212,233 @@ bsd.defaults.dialog = {
 
 **Usage :**
 
-When using a callback function, it will receive as argument the original "modal dismiss" event.
+Simple call:
 
 ```javascript
-// Simple call.
-
 bsd.alert('Lorem ipsum dolor sit amet');
+```
 
-// Call with options.
+Simple dialog with direct callback assignment:
 
-bsd.alert('Lorem ipsum dolor sit amet', {
-    closeText: "OK",
-    closeClass: "btn-success"
-});
-
-// Callback
-
-bsd.alert('Lorem ipsum dolor sit amet', function (event) {
+```javascript
+bsd.alert('Lorem ipsum dolor sit amet', function () {
     // ...
 });
+```
 
+// Customized dialog
+
+```javascript
 bsd.alert('Lorem ipsum dolor sit amet', {
     closeText: "OK",
     closeClass: "btn-success",
-    callback: function (event) {
+    callback: function () {
         // ...
     }
 });
 ```
 
-**Default options :**
+**Options :**
 
-You can customize these options as described in the options section.
+Alert dialogs accept following options in addition to [common options](#options).
+
+If you need to change the `template` option, make sure to keep `bsd-*` classes, which are necessary to make the dialog work.
 
 ```javascript
 bsd.defaults.alert = {
-    // Callback : [null] | function
-    callback: null,
-
     // The template used to generate dialog.
-    template: "[See below]",
-
-    // The close button text.
-    closeText: "Validate",
-
-    // A class to append to close button.
-    closeClass: "btn-primary"
+    template: `<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                       <div class="modal-content">
+                           <div class="modal-body">
+                               <p class="lead bsd-message"></p>
+                               <div class="bsd-controls d-flex align-items-center mt-3">
+                                   <button type="button" class="btn bsd-close" data-dismiss="modal"></button>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>`,
+    
+    // The close button options.
+    closeText: 'Validate',
+    closeClass: 'btn-primary',
+    
+    // Manage controls alignment: ['around'] | 'center' | 'start' | 'end' | 'between'
+    controlsAlignment: 'around'
 };
-```
-
-**Default template :**
-
-If you need to change this template, just make sure to keep required `bsd-*` classes.
-
-```html
-<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <p class="lead bsd-message"></p>
-                <div class="d-flex justify-content-center mt-3">
-                    <button type="button" class="btn bsd-close" data-dismiss="modal"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 ```
 
 ## Confirm
 
 **Usage :**
 
-The callback function will receive two arguments:
+The callback function will receive a boolean as argument.  
+Make it return `false` to keep the dialog opened, otherwise it will be closed.
 
-1.  The confirmed status as a boolean.
-2.  The original event that raised the callback.
-
-It must return a boolean indicating if the dialog should be closed.
+Simple call:
 
 ```javascript
-// Simple call.
-
-bsd.confirm('Lorem ipsum dolor sit amet', function (confirmed, event) {
+bsd.confirm('Lorem ipsum dolor sit amet', function (confirmed) {
     if (confirmed) {
         // ...
     }
-    return true;
 });
+```
 
-// Call with options.
+Call with options:
 
+```javascript
 bsd.confirm('Lorem ipsum dolor sit amet', {
     confirmText: "Delete",
     confirmClass: "btn-danger",
-    callback: function (confirmed, event) {
+    callback: function (confirmed) {
         if (confirmed) {
             // ...
         }
-        return true;
     }
 });
 ```
 
-**Default options :**
+**Options :**
 
-You can customize these options as described in the options section.
+Confirm dialogs accept following options in addition to [common options](#options).
+
+If you need to change the `template` option, make sure to keep `bsd-*` classes, which are necessary to make the dialog work.
 
 ```javascript
 bsd.defaults.confirm = {
-    // Callback : function
-    callback: function (confirmed, event) {
-        return true;
-    },
-
     // The template used to generate dialog.
-    template: "[See below]",
-
-    // The cancel button text.
-    cancelText: "Cancel",
-
-    // A class to append to cancel button.
-    cancelClass: "btn-light",
-
-    // The confirm button text.
-    confirmText: "Validate",
-
-    // A class to append to confirm button.
-    confirmClass: "btn-primary"
+    template: `<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                       <div class="modal-content">
+                           <div class="modal-body">
+                               <p class="lead bsd-message"></p>
+                               <div class="bsd-controls d-flex align-items-center mt-3">
+                                   <button class="btn bsd-cancel mr-1" data-dismiss="modal"></button>
+                                   <button class="btn bsd-confirm ml-1"></button>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>`,
+    
+    // The cancel button options.
+    cancelText: 'Cancel',
+    cancelClass: 'btn-light',
+    
+    // The confirm button options.
+    confirmText: 'Validate',
+    confirmClass: 'btn-primary'
 };
-```
-
-**Default template :**
-
-If you need to change this template, just make sure to keep required `bsd-*` classes.
-
-```html
-<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <p class="lead bsd-message"></p>
-                <div class="d-flex justify-content-between mt-3">
-                    <button class="btn bsd-cancel" data-dismiss="modal"></button>
-                    <button class="btn bsd-confirm"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 ```
 
 ## Prompt
 
 **Usage :**
 
-The callback function will receive two arguments:
+The callback function will receive:
 
-1.  The prompt field value, or `null` if canceled.
-2.  The original event that raised the callback.
++ `null` on cancel/dismiss.
++ The user input on "submit". Make it return `false` to keep the dialog opened, otherwise it will be closed.
 
-It must return a boolean indicating if the dialog should be closed.
+Simple call:
 
 ```javascript
-// Simple call.
-
-bsd.prompt('Lorem ipsum dolor sit amet', function (value, event) {
-    if (value === null) {
-        return true;
+bsd.prompt('Lorem ipsum dolor sit amet', function (value) {
+    if (value !== null) {
+        if (value.trim() === '') {
+            return false;  // Prevent dialog closing, as provided value is empty.
+        } 
+        
+        console.log(value);
     }
-
-    if (value.trim() === '') {
-        bsd.alert('You must provide a value!');
-        return false;
-    }
-
-    // ...
-
-    return true;
 });
+```
 
-// Call with options.
+Call with options:
 
+```javascript
 bsd.prompt('Lorem ipsum dolor sit amet', {
     confirmText: "Save",
     confirmClass: "btn-success",
     callback: function (value, event) {
-        if (value === null) {
-            return true;
+        if (value !== null) {
+            if (value.trim() === '') {
+                return false;  // Prevent dialog closing, as provided value is empty.
+            } 
+            
+            console.log(value);
         }
-
-        if (value.trim() === '') {
-            bsd.alert('You must provide a value!');
-            return false;
-        }
-
-        // ...
-
-        return true;
     }
 });
 ```
 
 **Default options :**
 
-You can customize these options as described in the options section.
+Prompt dialogs accept following options in addition to [common options](#options).
+
+If you need to change the `template` option, make sure to keep `bsd-*` classes, which are necessary to make the dialog work.
 
 ```javascript
 bsd.defaults.prompt = {
-    // Generate the prompt field : string | jQuery object | function (must return a jQuery object).
-    // The prompt field MUST have the class "bsd-field".
-    // If a function is provided, its return value MUST be compatible with jQuery "appendTo" function.
+    // Generate the prompt field : string | jQuery object | function
+    // If a function is provided, it MUST return a value compatible with jQuery "appendTo" function.
     field: function (multiline) {
-        if (multiline) {
-            return '<textarea class="form-control bsd-field"></textarea>';
-        }
-        return '<input type="text" class="form-control bsd-field"/>';
+      if (multiline) {
+          return '<textarea class="form-control bsd-field"></textarea>';
+      }
+      return '<input type="text" class="form-control bsd-field"/>';
     },
-
-    // Callback : function
-    callback: function (value, event) {
-        return true;
+    
+    // Get current prompt value.
+    // Receive the modal element and returns the user input.
+    value: function ($dialog) {
+      return $('.bsd-field', $dialog).val();
     },
-
+    
     // The template used to generate dialog.
-    template: "[See below]",
-
+    template: `<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                       <div class="modal-content">
+                           <div class="modal-body">
+                               <p class="lead bsd-message"></p>
+                               <div class="bsd-field-wrapper"></div>
+                               <div class="bsd-controls d-flex align-items-center mt-3">
+                                   <button class="btn bsd-cancel mr-1" data-dismiss="modal"></button>
+                                   <button class="btn bsd-confirm ml-1"></button>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>`,
+    
     // Is the prompt input multiline:  true | [false]
     multiline: false,
-
-    // The cancel button text.
-    cancelText: "Cancel",
-
-    // A class to append to cancel button.
-    cancelClass: "btn-light",
-
-    // The confirm button text.
-    confirmText: "Validate",
-
-    // A class to append to confirm button.
-    confirmClass: "btn-primary"
+    
+    // The cancel button options.
+    cancelText: 'Cancel',
+    cancelClass: 'btn-light',
+    
+    // The confirm button options.
+    confirmText: 'Validate',
+    confirmClass: 'btn-primary'
 };
-```
-
-**Default template :**
-
-If you need to change this template, just make sure to keep required `bsd-*` classes.
-
-```html
-<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <p class="lead bsd-message"></p>
-                <div class="bsd-field-wrapper"></div>
-                <div class="d-flex justify-content-between mt-3">
-                    <button class="btn bsd-cancel" data-dismiss="modal"></button>
-                    <button class="btn bsd-confirm"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 ```
 
 ## Extend BSD
 
-If you need to create custom dialogs, you can easily extend BSD.  
-Please find below a detailed example.
+If you need to create custom dialogs, you can easily extend BSD:
 
-**Define your dialog options and defaults.**
+**1/ Define your dialog options and defaults.**
 
-Simply append them to `bsd.defaults`. The key MUST be your dialog name.  
-Remember that your dialog options inherit from `bsd.defaults.dialog`, so you can override them.
+Simply append them to `bsd.defaults`, use your dialog name as key.
 
-The only required option that must be provided is the dialog template (`template` key).
+Remember that your dialog options inherit from `bsd.defaults.dialog`, so you can override them.  
+The only required option is the dialog template (`template` key).
 
 ```javascript
 bsd.defaults.mydialog = {
-    // Callback : function
-    callback: function () {
-        return true;
-    },
-
     // The template used to generate dialog.
     template: `<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -494,99 +446,92 @@ bsd.defaults.mydialog = {
                             <div class="modal-header">
                                 <h5 class="modal-title bsd-title"></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
+                                    <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <p class="bsd-subtitle"></p>
                             </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn bsd-no" data-dismiss="modal"></button>
-                                <button type="button" class="btn bsd-maybe"></button>
-                                <button type="button" class="btn bsd-yes"></button>
+                            <div class="modal-footer">
+                                <div class="bsd-controls d-flex flex-grow-1 align-items-center">
+                                    <button type="button" class="btn bsd-no mr-1" data-dismiss="modal"></button>
+                                    <button type="button" class="btn bsd-maybe mx-1"></button>
+                                    <button type="button" class="btn bsd-yes ml-1"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>`,
 
-    // Center vertically the dialog in the window: [true] | false
-    vcenter: true,
-
-    // Center horizontally the dialog text: [true] | false
-    hcenter: true,
-
     // No button.
-    noText: "No",
-    noClass: "btn-danger",
+    noText: 'No',
+    noClass: 'btn-danger',
 
     // Maybe button.
-    maybeText: "Maybe",
-    maybeClass: "btn-primary",
+    maybeText: 'Maybe',
+    maybeClass: 'btn-primary',
 
     // Yes button.
-    yesText: "Yes",
-    yesClass: "btn-success"
+    yesText: 'Yes',
+    yesClass: 'btn-success',
+    
+    // DEFAULTS OVERRIDE EXAMPLE
+    // Center horizontally the dialog text: true | [false]
+    hcenter: false,
 };
 ```
 
 **Create the dialog function.**
 
-You can easily generate the dialog thanks to the `bsd.dialog` function wich :
+You can easily generate the dialog thanks to `bsd.dialog` function which requires three arguments :
 
-1.  Prepares the dialog settings by merging provided options, dialog defaults and common defaults.
-2.  Generates the dialog HTML and insert it into the DOM.
-3.  Initializes Bootstrap 4 Modal based on settings, keeping it hidden.
-4.  Manages the dialog removal on `hidden.bs.modal` event based on `destroy` option.
-5.  Manages the `show.bs.modal` event based on `show` option.
-6.  Customizes the dialog using a provided function.
-7.  Manages the dialog opening based on `show` option.
-8.  Returns the dialog jQuery object.
-
-It requires three arguments :
-
-1.  The dialog defaults key name into `bsd.defaults`.
+1.  The dialog name (must match key into `bsd.defaults`).
 2.  The options set provided by the user.
-3.  A function to customize the dialog. When called, it will receive as arguments the dialog jQuery object and the merged settings.
+3.  A **customize function**, that will receive as arguments:
+    + the modal **jQuery object**
+    + the final settings (user's options set merged with dialog defaults and common defaults).  
+
+From the **customize function**: 
+
+1. Initialize the modal content based on settings.
+2. Configure each dialog button to fire an event. As the **dismiss.bsd** event is fired when dialog is closed with Escape key or outside click, it should also be fired by any cancel button into the custom dialog. 
+3. Use these events to invoke callback function. 
 
 ```javascript
 bsd.mydialog = function (title, subtitle, options) {
-    return this.dialog("mydialog", options, function ($dialog, settings) {
+    return this.dialog('mydialog', options, function ($dialog, settings) {
         // Manage dialog texts.
         $('.bsd-title', $dialog).html(title || '');
         $('.bsd-subtitle', $dialog).html(subtitle || '');
 
         // Customize buttons.
-        $('.bsd-no', $dialog).addClass(settings.noClass).text(settings.noText);
-        $('.bsd-maybe', $dialog).addClass(settings.maybeClass).text(settings.maybeText);
-        $('.bsd-yes', $dialog).addClass(settings.yesClass).text(settings.yesText);
+        $('.bsd-no', $dialog).addClass(settings.noClass).text(settings.noText).click(function () {
+            $dialog.trigger('dismiss.bsd');
+        });
+        $('.bsd-maybe', $dialog).addClass(settings.maybeClass).text(settings.maybeText).click(function () {
+            $dialog.trigger('maybe.bsd');
+        });
+        $('.bsd-yes', $dialog).addClass(settings.yesClass).text(settings.yesText).click(function () {
+            $dialog.trigger('yes.bsd');
+        });
 
         // Manage dialog callback.
         if (typeof settings.callback === 'function') {
-            // Close on Escape key.
-            $dialog.on('keydown.dismiss.bs.modal', function (e) {
-                settings.callback('no', e);
-            });
-
-            // Close on click.
-            $dialog.on('click.dismiss.bs.modal', function (e) {
-                if (!$(e.target).is('.bsd-maybe, .bsd-yes')) {
-                    settings.callback('no', e);
-                }
-            });
-
-            // Maybe button click.
-            $('.bsd-maybe', $dialog).click(function (e) {
-                if (settings.callback('maybe', e) !== false) {
-                    $dialog.modal('hide');
-                }
-            });
-
-            // Yes button click.
-            $('.bsd-yes', $dialog).click(function (e) {
-                if (settings.callback('yes', e) !== false) {
-                    $dialog.modal('hide');
-                }
-            });
+            $dialog
+                .on('dismiss.bsd', function () {
+                    settings.callback('no');
+                })
+                .on('maybe.bsd', function () {
+                    if (settings.callback('maybe') !== false) {
+                        $dialog.modal('hide');
+                    }
+                })
+                .on('yes.bsd', function () {
+                    if (settings.callback('yes') !== false) {
+                        $dialog.modal('hide');
+                    }
+                })
+            ;
         }
     });
 };
@@ -594,16 +539,14 @@ bsd.mydialog = function (title, subtitle, options) {
 
 **Usage:**
 
-Simply use your function like this:
+Simply use your dialog like other ones:
 
 ```javascript
 $('#mydialog-demo').click(function () {
-    var subtitle = 'Phasellus ultricies dolor ac velit tempus lobortis.'
-            + '<br>Duis ipsum justo, viverra et molestie eget, congue in nunc.';
+    var subtitle = 'Phasellus ultricies dolor ac velit tempus lobortis.<br>Duis ipsum justo, viverra et molestie eget, congue in nunc.';
 
-    bsd.mydialog('Do you like my custom dialog?', subtitle, function (value, e) {
+    bsd.mydialog('Do you like my custom dialog?', subtitle, function (value) {
         console.log(value);
-        return true;
     });
 });
 ```
