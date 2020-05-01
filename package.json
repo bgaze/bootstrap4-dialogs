@@ -1,8 +1,8 @@
 {
     "name": "bgaze-bootstrap4-dialogs",
-    "version": "1.0.8",
+    "version": "2.0.0",
     "license": "MIT",
-    "description": "A collection of flexible dialogs based on Bootstrap 4 modals",
+    "description": "A tiny and flexible collection of dialogs based on Bootstrap 4 modals",
     "author": {
         "name": "Benjamin Gazé",
         "email": "benjamin@bgaze.fr",
@@ -30,7 +30,6 @@
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.2.2",
         "copy-webpack-plugin": "^5.1.1",
-        "uglifyjs-webpack-plugin": "^2.2.0",
         "webpack": "^4.43.0",
         "webpack-cli": "^3.3.11",
         "webpack-dashboard": "^3.2.0",
