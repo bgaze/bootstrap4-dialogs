@@ -6,9 +6,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/bgaze/bootstrap4-dialogs)](https://github.com/bgaze/bootstrap4-dialogs/stargazers)
 [![npm](https://img.shields.io/npm/dt/bgaze-bootstrap4-dialogs)](https://www.npmjs.com/package/bgaze-bootstrap4-dialogs)
 
-<p align="center">
-    <img src="./readme.png">
-</p>
+![bootstrap4-dialogs](./readme.png)
 
 BSD is a tiny and flexible collection of dialog popups based on Bootstrap 4 modals.  
 Custom dialogs can be easily defined, in addition to built-in ones (alert, confirm and prompt).
